@@ -5,7 +5,7 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "tattoo_artists",
+                name: "workers",
                 columns: [
                     {
                         name: "id",
@@ -13,11 +13,6 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: "increment"
-                    },
-                    {
-                        name: "name",
-                        type: "varchar",
-                        length: "20"
                     },
                     {
                         name: "first_name",
@@ -38,16 +33,11 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                     {
                         name: "phone",
                         type: "number",
-                        length: "13"
+                        length: "12"
                     },
                     {
-                        name: "license",
+                        name: "nationality",
                         type: "number",
-                        length: "13"
-                    },
-                    {
-                        name: "country",
-                        type: "varchar",
                         length: "13"
                     },
                     {
@@ -63,7 +53,7 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["user","admin", "superAdmin"],
+                        enum: ["user", "admin", "superAdmin"],
                         default: '"user"'
                     },
                     {
@@ -85,7 +75,8 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable("workers");
     }
 
 }
+

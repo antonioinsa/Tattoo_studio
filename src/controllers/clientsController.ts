@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import { User } from "../models/User";
+import { Client } from "../models/Client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const register = async (req: Request, res: Response) => {
     try {
-        const name = req.body.name
         const first_name = req.body.first_name
         const last_name = req.body.last_name
         const email = req.body.email
@@ -21,9 +20,8 @@ const register = async (req: Request, res: Response) => {
         const encryptedPassword = bcrypt.hashSync(password, 35)
 
 
-        const newUser = await User.create
+        const newClient = await Client.create
             ({
-                name: name,
                 first_name: first_name,
                 last_name: last_name,
                 email: email,
@@ -35,7 +33,7 @@ const register = async (req: Request, res: Response) => {
             ({
                 success: true,
                 message: "User created successfully",
-                token: newUser
+                token: newClient
             })
     }
     catch (error) {
@@ -53,18 +51,18 @@ const login = async (req: Request, res: Response) => {
         const email = req.body.email
         const password = req.body.password
 
-        const user = await User.findOneBy
+        const client = await Client.findOneBy
             ({
                 email: email
             })
-        if (!user) {
+        if (!client) {
             return res.status(403).json
                 ({
                     successs: true,
                     message: "User or password incorrect"
                 })
         }
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (!bcrypt.compareSync(password, client.password)) {
             return res.status(403).json
                 ({
                     success: true,
@@ -75,9 +73,9 @@ const login = async (req: Request, res: Response) => {
         const token = jwt.sign
             (
                 {
-                    id: user.id,
-                    email: user.email,
-                    role: user.role
+                    id: client.id,
+                    email: client.email,
+                    role: client.role
                 },
                 "D_uR9_M0#@951hKEc_9l",
                 {
@@ -107,7 +105,7 @@ const login = async (req: Request, res: Response) => {
 
 const acount = async (req: Request, res: Response) => {
     try {
-        const user = await User.findOneBy
+        const client = await Client.findOneBy
             (
                 { id: req.token.id }
             )
@@ -116,7 +114,7 @@ const acount = async (req: Request, res: Response) => {
                 {
                     success: true,
                     message: "Profile user retrieved",
-                    data: user
+                    data: client
                 }
             )
     } catch (error) {
@@ -133,14 +131,14 @@ const acount = async (req: Request, res: Response) => {
 
 const allRegister = async (req: Request, res: Response) => {
     try {
-        const users = await User.find()
+        const clients = await Client.find()
 
         return res.status(200).json
             (
                 {
                     success: true,
                     message: "Users retrieved",
-                    data: users
+                    data: clients
                 }
             )
     } catch (error) {
