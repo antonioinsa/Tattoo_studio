@@ -1,0 +1,24 @@
+import express from "express"
+import { router as routerUsers } from "./routes/usersRoutes";
+import { router as routerTattooArtists } from "./routes/tattooArtistsRoutes";
+import { AppDataSource } from "./db";
+
+const app = express()
+
+const PORT = process.env.PORT || 3010
+
+app.use(express.json())
+app.use('/user', routerUsers)
+app.use('/worker', routerTattooArtists)
+
+AppDataSource.initialize()
+    .then(() => {
+        console.log('Database connected');
+        app.listen(PORT, () => {
+            console.log(`Server is running ${PORT}`);
+
+        })
+    })
+    .catch(error => {
+        console.log(error)
+    })
