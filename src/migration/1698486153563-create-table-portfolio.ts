@@ -23,12 +23,6 @@ export class CreateTableExtras1698486153563 implements MigrationInterface {
                         type: "int"
                     },
                     {
-                        name: "role",
-                        type: "enum",
-                        enum: ["user","admin", "superAdmin"],
-                        default: '"user"'
-                    },
-                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",

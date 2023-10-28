@@ -40,13 +40,6 @@ export class CreateTableTattoGalery1698353804252 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
                     },
-                    {
-                        name: "role",
-                        type: "enum",
-                        enum: ["user","admin", "superAdmin"],
-                        default: '"user"'
-                    }
-                    
                 ],
             }),
             true

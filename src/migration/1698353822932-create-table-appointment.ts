@@ -43,13 +43,6 @@ export class CreateTableAppointment1698353822932 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
                     },
-                    {
-                        name: "role",
-                        type: "enum",
-                        enum: ["user","admin", "superAdmin"],
-                        default: '"user"'
-                    }
-                    
                 ],
                 foreignKeys: [
                     {

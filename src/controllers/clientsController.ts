@@ -103,7 +103,7 @@ const login = async (req: Request, res: Response) => {
     }
 }
 
-const acount = async (req: Request, res: Response) => {
+const account = async (req: Request, res: Response) => {
     try {
         const client = await Client.findOneBy
             (
@@ -128,6 +128,8 @@ const acount = async (req: Request, res: Response) => {
             )
     }
 }
+
+const create = 
 
 const allRegister = async (req: Request, res: Response) => {
     try {
@@ -155,4 +157,4 @@ const allRegister = async (req: Request, res: Response) => {
 
 
 
-export { register, login, acount, allRegister }
+export { register, login, account, allRegister, create, modify, update, delete, consult }
