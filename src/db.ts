@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { CreateTableUsers1698355981436 } from "./migration/1698355981436-create-table-clients"
 import { CreateTableTattooArtists1698353691519 } from "./migration/1698353691519-create-table-workers"
 import { CreateTableAppointment1698353822932 } from "./migration/1698353822932-create-table-appointment"
+import { CreateTableTattoGalery1698353804252 } from "./migration/1698353804252-create-table-products"
 
 export const AppDataSource = new DataSource({
 type: "mysql",
@@ -14,7 +15,8 @@ database: "tattoo_studio",
 entities: [],
 migrations: [CreateTableUsers1698355981436,
     CreateTableTattooArtists1698353691519,
-    CreateTableAppointment1698353822932],
+    CreateTableAppointment1698353822932,
+    CreateTableTattoGalery1698353804252],
 synchronize: false,
 logging: false,
 })
