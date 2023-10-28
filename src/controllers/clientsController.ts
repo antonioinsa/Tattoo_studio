@@ -129,7 +129,6 @@ const account = async (req: Request, res: Response) => {
     }
 }
 
-const create = 
 
 const allRegister = async (req: Request, res: Response) => {
     try {
