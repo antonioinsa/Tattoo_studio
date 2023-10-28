@@ -4,6 +4,7 @@ import { CreateTableUsers1698355981436 } from "./migration/1698355981436-create-
 import { CreateTableTattooArtists1698353691519 } from "./migration/1698353691519-create-table-workers"
 import { CreateTableAppointment1698353822932 } from "./migration/1698353822932-create-table-appointment"
 import { CreateTableTattoGalery1698353804252 } from "./migration/1698353804252-create-table-products"
+import { CreateTableExtras1698486153563 } from "./migration/1698486153563-create-table-portfolio"
 
 export const AppDataSource = new DataSource({
 type: "mysql",
@@ -16,7 +17,8 @@ entities: [],
 migrations: [CreateTableUsers1698355981436,
     CreateTableTattooArtists1698353691519,
     CreateTableAppointment1698353822932,
-    CreateTableTattoGalery1698353804252],
+    CreateTableTattoGalery1698353804252,
+    CreateTableExtras1698486153563],
 synchronize: false,
 logging: false,
 })
