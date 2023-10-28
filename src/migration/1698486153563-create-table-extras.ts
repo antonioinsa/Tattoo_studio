@@ -16,13 +16,17 @@ export class CreateTableExtras1698486153563 implements MigrationInterface {
                     },
                     {
                         name: "tattoo_artist_id",
-                        type: "varchar",
-                        length: "20"
+                        type: "int"
                     },
                     {
                         name: "product_id",
-                        type: "varchar",
-                        length: "20"
+                        type: "int"
+                    },
+                    {
+                        name: "role",
+                        type: "enum",
+                        enum: ["user","admin", "superAdmin"],
+                        default: '"user"'
                     },
                     {
                         name: "created_at",
@@ -37,6 +41,20 @@ export class CreateTableExtras1698486153563 implements MigrationInterface {
                     },
 
                 ],
+                foreignKeys: [
+                    {
+                        columnNames: ["tattoo_artist_id"],
+                        referencedTableName: "workers",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE",
+                    },
+                    {
+                        columnNames: ["product_id"],
+                        referencedTableName: "products",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE",
+                    }
+                ]
             }),
             true
         );

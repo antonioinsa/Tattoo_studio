@@ -32,7 +32,7 @@ export class CreateTableUsers1698355981436 implements MigrationInterface {
                     },
                     {
                         name: "phone",
-                        type: "number",
+                        type: "varchar",
                         length: "12"
                     },
                     {

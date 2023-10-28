@@ -32,12 +32,12 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                     },
                     {
                         name: "phone",
-                        type: "number",
+                        type: "varchar",
                         length: "12"
                     },
                     {
                         name: "nationality",
-                        type: "number",
+                        type: "varchar",
                         length: "13"
                     },
                     {

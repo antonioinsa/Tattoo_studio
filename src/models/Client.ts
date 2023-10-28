@@ -28,9 +28,9 @@ export class Client extends BaseEntity {
     role!: string
 
     @Column()
-    created_at!: Date
+    created_at!: string
 
     @Column()
-    updated_at!: Date
+    updated_at!: string
 
 }

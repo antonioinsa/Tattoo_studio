@@ -1,6 +1,6 @@
 import express from "express"
 import { router as routerUsers } from "./routes/clientsRoutes";
-import { router as routerTattooArtists } from "./routes/tattooArtistsRoutes";
+import { router as routerTattooArtists } from "./routes/workersRoutes";
 import { AppDataSource } from "./db";
 
 const app = express()
