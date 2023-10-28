@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Portfolio } from "./Portfolio"
 
 @Entity("products")
 export class Product extends BaseEntity{
@@ -19,5 +20,8 @@ export class Product extends BaseEntity{
 
     @Column()
     updated_at!: Date
+
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.product)
+    portfolios!: Portfolio[]
 
 }

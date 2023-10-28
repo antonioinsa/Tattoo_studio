@@ -156,4 +156,4 @@ const allRegister = async (req: Request, res: Response) => {
 
 
 
-export { register, login, account, allRegister, create, modify, update, delete, consult }
+export { register, login, account, allRegister, create, modify, update, remove, consult }

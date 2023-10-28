@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Client } from "./Client"
+import { Worker } from "./Worker"
 
 @Entity("appointment")
 export class Appointment extends BaseEntity {
@@ -23,5 +25,13 @@ export class Appointment extends BaseEntity {
 
     @Column()
     appointment_updated!: string
+
+    @ManyToOne(() => Client, (client) => client.appointments)
+    @JoinColumn({ name: "client_id" })
+    client!: Client
+
+    @ManyToOne(() => Worker, (worker) => worker.appointments)
+    @JoinColumn({ name: "tattoo_artist_id" })
+    worker!: Worker[]
 
 }
