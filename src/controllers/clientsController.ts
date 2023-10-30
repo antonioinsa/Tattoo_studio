@@ -162,6 +162,7 @@ const account = async (req: Request, res: Response) => {
 const modifyClientByTokenId = async (req: Request, res: Response) => {
     try {
         const { first_name, last_name, phone, email, password } = req.body
+        const encryptedPassword = bcrypt.hashSync(password, 15)
         const client = await Client.findOneBy
             (
                 { id: req.token.id }
@@ -182,7 +183,7 @@ const modifyClientByTokenId = async (req: Request, res: Response) => {
                 last_name: last_name,
                 phone: phone,
                 email: email,
-                password: password
+                password: encryptedPassword
             }
         )
         return res.status(200).json({
