@@ -49,7 +49,7 @@ const register = async (req: Request, res: Response) => {
         const encryptedPassword = bcrypt.hashSync(password, 15)
 
         console.log(encryptedPassword);
-        
+
         const newClient = await Client.create
             ({
                 first_name: first_name,
@@ -86,14 +86,14 @@ const login = async (req: Request, res: Response) => {
                 email: email
             })
         if (!client) {
-            return res.status(403).json
+            return res.status(401).json
                 ({
                     success: true,
                     message: "Client or password incorrect"
                 })
         }
         if (!bcrypt.compareSync(password, client.password)) {
-            return res.status(403).json
+            return res.status(401).json
                 ({
                     success: true,
                     message: "Client or password incorrect"
@@ -159,45 +159,45 @@ const account = async (req: Request, res: Response) => {
     }
 }
 
-//const modifyClientById = async (req: Request, res: Response) => {
-//    try {
-//        const { first_name, last_name, phone, email, password } = req.body
-//        const clientId = req.token.id
-//
-//        // Buscar el cliente que se desea actualizar
-//        const client = await Client.findOneBy
-//        (
-//            { id: clientId }
-//        )
-//
-//        if (!client) {
-//            return res.status(404).json({
-//                success: false,
-//                message: "Client not found"
-//            });
-//        }
-//
-//        client.first_name,
-//        client.last_name,
-//        client.phone,
-//        client.email,
-//        client.password
-//
-//        await client.save();
-//
-//        return res.status(200).json({
-//            success: true,
-//            message: "Client has been successfully updated",
-//            data: client
-//        });
-//    } catch (error) {
-//        return res.status(500).json({
-//            success: false,
-//            message: "Client profile can't be updated",
-//            error: error
-//        });
-//    }
-//};
+const modifyClientByTokenId = async (req: Request, res: Response) => {
+    try {
+        const { first_name, last_name, phone, email, password } = req.body
+        const client = await Client.findOneBy
+            (
+                { id: req.token.id }
+
+            )
+            if (!client) {
+                return res.status(500).json({
+                  success: true,
+                  message: "Client not found",
+                })
+              }
+          
+        await Client.update
+        (
+            { id: req.token.id },
+            {
+                first_name: first_name,
+                last_name: last_name,
+                phone: phone,
+                email: email,
+                password: password
+            }
+        )
+        return res.status(200).json({
+            success: true,
+            message: "Client has been successfully updated",
+            data: client
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Client profile can't be updated",
+            error: error
+        });
+    }
+};
 
 
 const allRegister = async (req: Request, res: Response) => {
@@ -226,4 +226,4 @@ const allRegister = async (req: Request, res: Response) => {
 
 
 
-export { register, login, account, allRegister}//, modifyClientById }
+export { register, login, account, allRegister, modifyClientByTokenId }
