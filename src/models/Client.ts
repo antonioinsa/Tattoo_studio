@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Appointment } from "./Appointment"
+//import { Appointment } from "./Appointment"
 
 
 @Entity("clients")
@@ -35,7 +35,7 @@ export class Client extends BaseEntity {
     @Column()
     updated_at!: string
 
-    @OneToMany(() => Appointment, (appointment) => appointment.client)
-    appointments!: Appointment[]
+    //@OneToMany(() => Appointment, (appointment) => appointment.client)
+    //appointments!: Appointment[]
 
 }

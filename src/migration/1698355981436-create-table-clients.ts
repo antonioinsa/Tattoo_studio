@@ -38,7 +38,7 @@ export class CreateTableUsers1698355981436 implements MigrationInterface {
                     {
                         name: "password",
                         type: "varchar",
-                        length: "15"
+                        length: "200"
                     },
                     {
                         name: "is_active",

@@ -1,6 +1,6 @@
 import express from "express"
 import { router as routerClients } from "./routes/clientsRoutes";
-import { router as routerTattooArtists } from "./routes/workersRoutes";
+//import { router as routerTattooArtists } from "./routes/workersRoutes";
 import { AppDataSource } from "./db";
 
 const app = express()
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3010
 
 app.use(express.json())
 app.use('/client', routerClients)
-app.use('/worker', routerTattooArtists)
+//app.use('/worker', routerTattooArtists)
 
 AppDataSource.initialize()
     .then(() => {
