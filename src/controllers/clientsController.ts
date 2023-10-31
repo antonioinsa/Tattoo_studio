@@ -3,36 +3,6 @@ import { Client } from "../models/Client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-//const getClients = async(req: Request, res: Response) => {
-//    try {
-//      const clients = await Client.find()
-//  
-//      return res.send(clients)
-//    } catch (error) {
-//      return res.send(error)
-//    }
-//  }
-//  const createClient = async (req: Request, res: Response) => {
-//    try {
-//        const {first_name, last_name, phone, email, password} = req.body
-//
-//        const newClient = await Client.create(
-//            {
-//                first_name: first_name,
-//                last_name: last_name,
-//                phone: phone,
-//                email: email,
-//                password: password
-//            }
-//        ).save()
-//        return res.json(newClient)
-//    } catch (error) {
-//        return res.json(error)
-//    }
-//}
-
-
-
 const register = async (req: Request, res: Response) => {
     try {
         const first_name = req.body.first_name
@@ -46,10 +16,7 @@ const register = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid email' });
         }
 
-        const encryptedPassword = bcrypt.hashSync(password, 15)
-
-        console.log(encryptedPassword);
-
+        const encryptedPassword = bcrypt.hashSync(password, 10)
         const newClient = await Client.create
             ({
                 first_name: first_name,
@@ -162,39 +129,68 @@ const account = async (req: Request, res: Response) => {
 const modifyClientByTokenId = async (req: Request, res: Response) => {
     try {
         const { first_name, last_name, phone, email, password } = req.body
-        const encryptedPassword = bcrypt.hashSync(password, 15)
+
         const client = await Client.findOneBy
             (
                 { id: req.token.id }
 
             )
-            if (!client) {
-                return res.status(500).json({
-                  success: true,
-                  message: "Client not found",
-                })
-              }
-          
+        
+        if (password) {
+            const encryptedPassword = bcrypt.hashSync(password, 10)
+            await Client.update
+                (
+                    { id: req.token.id },
+                    {
+                        password: encryptedPassword
+                    }
+                )
+            const updateClient = await Client.findOneBy
+                (
+                    { id: req.token.id }
+                )
+            return res.status(200).json({
+                success: true,
+                message: "Password has been successfully updated",
+                data: updateClient
+            });
+        }
+        if (email) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/;
+
+            return res.status(400).json
+                (
+                    {
+                        sucsess: false,
+                        message: 'Invalid email'
+                    }
+                )
+        }
+
         await Client.update
-        (
-            { id: req.token.id },
-            {
-                first_name: first_name,
-                last_name: last_name,
-                phone: phone,
-                email: email,
-                password: encryptedPassword
-            }
-        )
+            (
+                { id: req.token.id },
+                {
+                    first_name: first_name,
+                    last_name: last_name,
+                    phone: phone,
+                    email: email
+                }
+            )
+        const updateClient = await Client.findOneBy
+            (
+                { id: req.token.id }
+            )
         return res.status(200).json({
             success: true,
-            message: "Client has been successfully updated",
-            data: client
+            message: "Information updated successfully",
+            data: updateClient
         });
+
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Client profile can't be updated",
+            message: "Client profile cant be updated",
             error: error
         });
     }
