@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, account, allRegister, modifyClientByTokenId } from "../controllers/clientsController";
+import { register, login, account, allClients, modifyClientByTokenId } from "../controllers/clientsController";
 import { authUser } from "../middlewares/authUser";
 import { authSuperAdmin } from "../middlewares/authSuperAdmin";
 
@@ -15,7 +15,7 @@ router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
 //router.put('/account/updateAppointment', authUser, update)
 //router.delete('/account/deleteAppointment', authUser, remove)
 //router.get('/account/consultAppointment', authUser, consult)
-router.get('/db/allRegister', authUser, authSuperAdmin, allRegister)
+router.get('/db/clients', authUser, authSuperAdmin, allClients)
 
 
 export { router }

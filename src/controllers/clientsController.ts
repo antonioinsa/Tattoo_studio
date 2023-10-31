@@ -158,13 +158,17 @@ const modifyClientByTokenId = async (req: Request, res: Response) => {
         if (email) {
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/;
 
-            return res.status(400).json
-                (
-                    {
-                        sucsess: false,
-                        message: 'Invalid email'
-                    }
-                )
+            if (!emailRegex.test(email)) {
+                
+            
+                return res.status(400).json
+                    (
+                        {
+                            sucsess: false,
+                            message: 'Invalid email'
+                        }
+                    )
+            }
         }
 
         await Client.update
@@ -197,7 +201,7 @@ const modifyClientByTokenId = async (req: Request, res: Response) => {
 };
 
 
-const allRegister = async (req: Request, res: Response) => {
+const allClients = async (req: Request, res: Response) => {
     try {
         const clients = await Client.find()
 
@@ -223,4 +227,4 @@ const allRegister = async (req: Request, res: Response) => {
 
 
 
-export { register, login, account, allRegister, modifyClientByTokenId }
+export { register, login, account, allClients, modifyClientByTokenId }

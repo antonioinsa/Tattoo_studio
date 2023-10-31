@@ -24,8 +24,8 @@ export class CreateTableAppointment1698353822932 implements MigrationInterface {
                     },
                     {
                         name: "intervention_type",
-                        type: "varchar",
-                        length: "30",
+                        type: "enum",
+                        enum: ["tattoo", "piercing"]
                     },
                     {
                         name: "day",
@@ -33,12 +33,25 @@ export class CreateTableAppointment1698353822932 implements MigrationInterface {
                         enum: ["monday", "tuesday", "wednesday", "thursday", "friday"]
                     },
                     {
-                        name: "appointment_time",
+                        name: "hour",
+                        type: "enum",
+                        enum: ["09:00", "11:00", "11:30", "12:00", "16:30", "17:00", "17:30", "18:00"]
+                    },
+                    {
+                        name: "products_id",
+                        type: "int"
+                    },
+                    {
+                        name: "price",
+                        type: "int"
+                    },
+                    {
+                        name: "created_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
                     },
                     {
-                        name: "appointment_updated",
+                        name: "updated_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
@@ -56,7 +69,13 @@ export class CreateTableAppointment1698353822932 implements MigrationInterface {
                         referencedTableName: "workers",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE"
-                    }
+                    },
+                    {
+                        columnNames: ["products_id"],
+                        referencedTableName: "products",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE"
+                    },
                 ]
             }),
             true
