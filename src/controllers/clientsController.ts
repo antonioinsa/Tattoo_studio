@@ -233,60 +233,40 @@ const allClients = async (req: Request, res: Response) => {
 
 const removeClientById = async (req: Request, res: Response) => {
     try {
-        const clientIdToDelete = req.params.id
-
-        const clientToDelete = await Client.findOneBy
+        const clientToDelete = req.body.id
+        const clientToRemove = await Client.findOneBy
             (
-                { id: parseInt(clientIdToDelete) }
+                { id: parseInt(clientToDelete) }
             )
-
-        if (!clientToDelete) {
+        if (!clientToRemove) {
             return res.status(404).json
                 (
                     {
                         success: false,
-                        message: (`Client ID ${clientIdToDelete} not found`)
+                        message: (`Client ID ${clientToDelete} not found`)
                     }
                 )
         }
-        const clientDeleted = await Client.delete
+        const clientRemoved = await Client.remove(clientToRemove as Client);
+        return res.status(200).json
             (
                 {
-                    id: parseInt(clientIdToDelete)
+                    success: true,
+                    message: (`Client ID ${clientToDelete} has been deleted`),
+                    data: clientRemoved
                 }
             )
 
-        if (clientDeleted.affected && clientDeleted.affected > 0) {
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: (`Id ${clientIdToDelete} has been deleted correctly`),
-                        data: clientDeleted
-                    }
-                )
-        } else {
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: "Nothing has been deleted",
-                        data: clientDeleted
-                    }
-                )
-        }
-       
     } catch (error) {
         return res.status(500).json
             (
                 {
                     success: false,
-                    message: "Client cant be deleted",
+                    message: "Client couldn't be deleted",
                     error: error
                 }
             )
     }
-
 }
 
 const roleClientsById = async (req: Request, res: Response) => {

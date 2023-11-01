@@ -10,9 +10,9 @@ router.post('/register', register)
 router.post('/login', login)
 router.get('/account', authUser, account)
 router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
-router.get('/db/clients', authUser, authSuperAdmin, allClients)
-router.delete('/db/removeClient', authUser, authSuperAdmin, removeClientById)
-router.put('/db/roleClients', authUser, authSuperAdmin, roleClientsById)
+router.get('/db/clients', authSuperAdmin, allClients)
+router.delete('/db/removeClient', authSuperAdmin, removeClientById)
+router.put('/db/roleClients', authSuperAdmin, roleClientsById)
 
 
 export { router }

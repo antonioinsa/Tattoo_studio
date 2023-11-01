@@ -136,14 +136,15 @@ const login = async (req: Request, res: Response) => {
 
 const updateWorkerById = async (req: Request, res: Response) => {
     try {
-        const workerId = req.params.id
-        const { first_name, last_name, phone, email, password, nationality } = req.body
+        const workerId = req.body.id;
+        const { first_name, last_name, phone, email, password, nationality } = req.body;
 
-        await Worker.findOneBy
-            (
-                { id: req.body.id }
+        // Busca al trabajador por su ID
+        const workerToUpdate = await Worker.findOneBy({ id: workerId })
 
-            )
+        if (!workerToUpdate) {
+            return res.status(404).json({ success: false, message: `Worker ID ${workerId} not found` });
+        }
 
         if (password) {
             const encryptedPassword = bcrypt.hashSync(password, 10)
@@ -154,67 +155,55 @@ const updateWorkerById = async (req: Request, res: Response) => {
                         password: encryptedPassword
                     }
                 )
-            const updateWorker = await Worker.findOneBy
+            const updateClient = await Worker.findOneBy
                 (
-                    { id: req.token.id }
+                    { id: req.body.id }
                 )
             return res.status(200).json({
                 success: true,
-                message: `Password worker ${workerId} has been successfully updated`,
-                data: updateWorker
+                message: "Password has been successfully updated",
+                data: updateClient
             });
         }
+
         if (email) {
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/;
 
             if (!emailRegex.test(email)) {
-
-
-                return res.status(400).json
-                    (
-                        {
-                            sucsess: false,
-                            message: 'Invalid email'
-                        }
-                    )
+                return res.status(400).json({
+                    success: false,
+                    message: 'Invalid email format'
+                });
             }
         }
 
-        await Worker.update
-            (
-                { id: req.body.id },
-                {
-                    first_name: first_name,
-                    last_name: last_name,
-                    email: email,
-                    phone: phone,
-                    nationality: nationality
-                }
-            )
-        const updateWorker = await Worker.findOneBy
-            (
-                { id: req.body.id }
-            )
+        await Worker.update({ id: workerId }, {
+            first_name,
+            last_name,
+            email,
+            phone,
+            nationality
+        });
+
+        const updatedWorker = await Worker.findOneBy({ id: workerId });
         return res.status(200).json({
             success: true,
             message: `${workerId} updated successfully`,
-            data: updateWorker
+            data: updatedWorker
         });
-
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Worker profile cant be updated",
+            message: "Worker profile couldn't be updated",
             error: error
         });
     }
-}
+};
+
 
 const deleteWorkerById = async (req: Request, res: Response) => {
     try {
-        //RECUPERO EL ID QUE QUIERO BORRAR
-        const workerToDelete = req.body.id;
-        //RECUPERO EL ELEMENTO QUE QUIERO ELIMINAR (COMPRUEBO)
+        const workerToDelete = req.body.id
         const workerToRemove = await Worker.findOneBy
             (
                 { id: parseInt(workerToDelete) }
@@ -229,7 +218,6 @@ const deleteWorkerById = async (req: Request, res: Response) => {
                 )
         }
         const workerRemoved = await Worker.remove(workerToRemove as Worker);
-
         return res.status(200).json
             (
                 {
