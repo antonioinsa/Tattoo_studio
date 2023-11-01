@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class CreateTableTattooArtists1698353691519 implements MigrationInterface {
+export class CreateTableClients1698355981436 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "workers",
+                name: "clients",
                 columns: [
                     {
                         name: "id",
@@ -36,11 +36,6 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                         length: "12"
                     },
                     {
-                        name: "nationality",
-                        type: "varchar",
-                        length: "13"
-                    },
-                    {
                         name: "password",
                         type: "varchar",
                         length: "200"
@@ -53,7 +48,7 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["user", "admin", "superAdmin"],
+                        enum: ["user","admin", "superAdmin"],
                         default: '"user"'
                     },
                     {
@@ -75,8 +70,7 @@ export class CreateTableTattooArtists1698353691519 implements MigrationInterface
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("workers");
+        await queryRunner.dropTable("clients");
     }
 
 }
-

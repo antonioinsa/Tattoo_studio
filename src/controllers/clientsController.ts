@@ -48,6 +48,12 @@ const login = async (req: Request, res: Response) => {
         const email = req.body.email
         const password = req.body.password
 
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/
+
+
+        if (!emailRegex.test(email)) {
+            return res.json('invalid email format')
+        }
         const client = await Client.findOneBy
             ({
                 email: email
@@ -83,7 +89,7 @@ const login = async (req: Request, res: Response) => {
             (
                 {
                     success: true,
-                    message: "Cliente logged succesfully",
+                    message: "Client logged succesfully",
                     token: token
                 }
             )
@@ -130,12 +136,12 @@ const modifyClientByTokenId = async (req: Request, res: Response) => {
     try {
         const { first_name, last_name, phone, email, password } = req.body
 
-        const client = await Client.findOneBy
+        await Client.findOneBy
             (
                 { id: req.token.id }
 
             )
-        
+
         if (password) {
             const encryptedPassword = bcrypt.hashSync(password, 10)
             await Client.update
@@ -159,8 +165,8 @@ const modifyClientByTokenId = async (req: Request, res: Response) => {
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/;
 
             if (!emailRegex.test(email)) {
-                
-            
+
+
                 return res.status(400).json
                     (
                         {
@@ -225,6 +231,97 @@ const allClients = async (req: Request, res: Response) => {
     }
 }
 
+const removeClientById = async (req: Request, res: Response) => {
+    try {
+        const clientIdToDelete = req.params.id
 
+        const clientToDelete = await Client.findOneBy
+            (
+                { id: parseInt(clientIdToDelete) }
+            )
 
-export { register, login, account, allClients, modifyClientByTokenId }
+        if (!clientToDelete) {
+            return res.status(404).json
+                (
+                    {
+                        success: false,
+                        message: (`Client ID ${clientIdToDelete} not found`)
+                    }
+                )
+        }
+        const clientDeleted = await Client.delete
+            (
+                {
+                    id: parseInt(clientIdToDelete)
+                }
+            )
+
+        if (clientDeleted.affected && clientDeleted.affected > 0) {
+            return res.status(200).json
+                (
+                    {
+                        success: true,
+                        message: (`Id ${clientIdToDelete} has been deleted correctly`),
+                        data: clientDeleted
+                    }
+                )
+        } else {
+            return res.status(200).json
+                (
+                    {
+                        success: true,
+                        message: "Nothing has been deleted",
+                        data: clientDeleted
+                    }
+                )
+        }
+       
+    } catch (error) {
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Client cant be deleted",
+                    error: error
+                }
+            )
+    }
+
+}
+
+const roleClientsById = async (req: Request, res: Response) => {
+    try {
+        const clientId = req.params.id
+        const role = req.body
+
+        const client = await Client.findOneBy
+            (
+                { id: parseInt(clientId) }
+            )
+
+        if (client) {
+            client.role = role
+
+            await client.save()
+
+            return res.status(200).json
+                (
+                    {
+                        success: true,
+                        message: "Has been successfully updated"
+                    }
+                )
+        }
+    } catch (error) {
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Client not found or Role has not been updated",
+                    error: error
+                }
+            )
+    }
+}
+
+export { register, login, account, allClients, modifyClientByTokenId, removeClientById, roleClientsById }

@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Client } from "./Client"
-import { Worker } from "./Worker"
+//import { Client } from "./Client"
+//import { Worker } from "./Worker"
 
 @Entity("appointment")
 export class Appointment extends BaseEntity {
@@ -18,20 +18,29 @@ export class Appointment extends BaseEntity {
     intervention_type!: string
 
     @Column()
+    price!: string
+
+    @Column()
     day!: string
 
     @Column()
-    appointment_time!: string
+    hour!: string
 
     @Column()
-    appointment_updated!: string
+    article!: string
 
-    @ManyToOne(() => Client, (client) => client.appointments)
-    @JoinColumn({ name: "client_id" })
-    client!: Client
+    @Column()
+    created_at!: string
 
-    @ManyToOne(() => Worker, (worker) => worker.appointments)
-    @JoinColumn({ name: "tattoo_artist_id" })
-    worker!: Worker[]
+    @Column()
+    updated_at!: string
+
+    //@ManyToOne(() => Client, (client) => client.appointments)
+    //@JoinColumn({ name: "client_id" })
+    //client!: Client
+//
+    //@ManyToOne(() => Worker, (worker) => worker.appointments)
+    //@JoinColumn({ name: "tattoo_artist_id" })
+    //worker!: Worker[]
 
 }

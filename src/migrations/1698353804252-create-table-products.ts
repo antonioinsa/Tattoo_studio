@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class CreateTableExtras1698486153563 implements MigrationInterface {
+export class CreateTableProducts1698353804252 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "portfolio",
+                name: "products",
                 columns: [
                     {
                         name: "id",
@@ -15,12 +15,24 @@ export class CreateTableExtras1698486153563 implements MigrationInterface {
                         generationStrategy: "increment"
                     },
                     {
-                        name: "tattoo_artist_id",
-                        type: "int"
+                        name: "intervention_type",
+                        type: "enum",
+                        enum: ["tattoo", "piercing"]
                     },
                     {
-                        name: "product_id",
-                        type: "int"
+                        name: "price",
+                        type: "varchar",
+                        length: "7",
+                    },
+                    {
+                        name: "description",
+                        type: "varchar",
+                        length: "30",
+                    },
+                    {
+                        name: "article",
+                        type: "varchar",
+                        length: "200"
                     },
                     {
                         name: "created_at",
@@ -33,29 +45,14 @@ export class CreateTableExtras1698486153563 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
                     },
-
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["tattoo_artist_id"],
-                        referencedTableName: "workers",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                    {
-                        columnNames: ["product_id"],
-                        referencedTableName: "products",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    }
-                ]
             }),
             true
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("portfolio");
+        await queryRunner.dropTable("products");
     }
 
 }

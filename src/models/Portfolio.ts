@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Product } from "./Product"
-import { Worker } from "./Worker"
+//import { Product } from "./Product"
+//import { Worker } from "./Worker"
 
 @Entity("portfolio")
 export class Portfolio extends BaseEntity{
@@ -20,13 +20,13 @@ export class Portfolio extends BaseEntity{
         @Column()
         updated_at!: Date
     
-        @ManyToOne(() => Worker, (worker) => worker.portfolios)
-        @JoinColumn({ name: "tattoo_artist_id" })
-        worker!: Worker[]
-
-        @ManyToOne(() => Product, (product) => product.portfolios)
-        @JoinColumn({ name: "tattoo_artist_id" })
-        product!: Product[]
+        //@ManyToOne(() => Worker, (worker) => worker.portfolios)
+        //@JoinColumn({ name: "tattoo_artist_id" })
+        //worker!: Worker[]
+//
+        //@ManyToOne(() => Product, (product) => product.portfolios)
+        //@JoinColumn({ name: "tattoo_artist_id" })
+        //product!: Product[]
 
     }
     
