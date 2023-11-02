@@ -1,17 +1,11 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-//import { Portfolio } from "./Portfolio"
+import { Portfolio } from "./Portfolio"
 
 @Entity("products")
 export class Product extends BaseEntity{
     @PrimaryGeneratedColumn()
     id!: number
-
-    @Column()
-    intervention_type!: string
-
-    @Column()
-    price!: string
-
+    
     @Column()
     description!: string
 
@@ -24,7 +18,7 @@ export class Product extends BaseEntity{
     @Column()
     updated_at!: Date
 
-    //@OneToMany(() => Portfolio, (portfolio) => portfolio.product)
-    //portfolios!: Portfolio[]
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.productPortfolio)
+    productPortfolios!: Portfolio[]
 
 }

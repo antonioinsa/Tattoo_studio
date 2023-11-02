@@ -194,7 +194,7 @@ const updateWorkerById = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Worker profile couldn't be updated",
+            message: "Worker profile could not be updated",
             error: error
         });
     }
@@ -232,11 +232,45 @@ const deleteWorkerById = async (req: Request, res: Response) => {
             (
                 {
                     success: false,
-                    message: "Worker couldn't be deleted",
+                    message: "Worker could not be deleted",
                     error: error
                 }
             )
     }
 }
 
-export { getWorkers, register, login, updateWorkerById, deleteWorkerById }
+const changeRoleBySuperAdmin = async (req: Request, res: Response) => {
+    try {
+        const id = req.body.id
+        const role = req.body.role
+
+        const changeRole = await Worker.update
+        (
+            {
+                id: id
+            },
+            {
+                role: role
+            }
+        )
+        return res.status(200).json
+            (
+                {
+                    success: true,
+                    message: "Role change successfully",
+                    data: changeRole
+                }
+            )
+
+    } catch (error) {
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Role has not been updated",
+                    error: error
+                }
+            )
+    }
+}
+export { getWorkers, register, login, updateWorkerById, deleteWorkerById, changeRoleBySuperAdmin }

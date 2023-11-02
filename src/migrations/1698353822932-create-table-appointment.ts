@@ -28,11 +28,6 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                         enum: ["tattoo", "piercing"]
                     },
                     {
-                        name: "price",
-                        type: "varchar",
-                        length: "7",
-                    },
-                    {
                         name: "day",
                         type: "enum",
                         enum: ["monday", "tuesday", "wednesday", "thursday", "friday"]
@@ -44,6 +39,11 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                     },
                     {
                         name: "article",
+                        type: "varchar",
+                        length: "200"
+                    },
+                    {
+                        name: "description",
                         type: "varchar",
                         length: "200"
                     },

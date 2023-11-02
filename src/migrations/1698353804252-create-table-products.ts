@@ -15,11 +15,6 @@ export class CreateTableProducts1698353804252 implements MigrationInterface {
                         generationStrategy: "increment"
                     },
                     {
-                        name: "intervention_type",
-                        type: "enum",
-                        enum: ["tattoo", "piercing"]
-                    },
-                    {
                         name: "price",
                         type: "varchar",
                         length: "7",

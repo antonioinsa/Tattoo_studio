@@ -269,39 +269,6 @@ const removeClientById = async (req: Request, res: Response) => {
     }
 }
 
-const roleClientsById = async (req: Request, res: Response) => {
-    try {
-        const clientId = req.params.id
-        const role = req.body
 
-        const client = await Client.findOneBy
-            (
-                { id: parseInt(clientId) }
-            )
 
-        if (client) {
-            client.role = role
-
-            await client.save()
-
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: "Has been successfully updated"
-                    }
-                )
-        }
-    } catch (error) {
-        return res.status(500).json
-            (
-                {
-                    success: false,
-                    message: "Client not found or Role has not been updated",
-                    error: error
-                }
-            )
-    }
-}
-
-export { register, login, account, allClients, modifyClientByTokenId, removeClientById, roleClientsById }
+export { register, login, account, allClients, modifyClientByTokenId, removeClientById }
