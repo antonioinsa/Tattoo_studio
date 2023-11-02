@@ -14,11 +14,7 @@ export class CreateTableProducts1698353804252 implements MigrationInterface {
                         isGenerated: true,
                         generationStrategy: "increment"
                     },
-                    {
-                        name: "price",
-                        type: "varchar",
-                        length: "7",
-                    },
+
                     {
                         name: "description",
                         type: "varchar",

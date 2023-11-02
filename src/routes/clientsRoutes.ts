@@ -11,8 +11,8 @@ router.post('/login', login)
 router.get('/account', authUser, account)
 router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
 //router.get('/consultAnAppointment', authUser, consult)
-router.get('/db/clients',authUser, authSuperAdmin, allClients)
-router.delete('/db/removeClient', authUser, authSuperAdmin, removeClientById)
+router.get('/clients',authUser, authSuperAdmin, allClients)
+router.delete('/delete', authUser, authSuperAdmin, removeClientById)
 
 
 
