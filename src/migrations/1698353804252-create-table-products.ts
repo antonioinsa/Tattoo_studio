@@ -14,11 +14,10 @@ export class CreateTableProducts1698353804252 implements MigrationInterface {
                         isGenerated: true,
                         generationStrategy: "increment"
                     },
-
                     {
                         name: "description",
                         type: "varchar",
-                        length: "30",
+                        length: "200"
                     },
                     {
                         name: "article",
