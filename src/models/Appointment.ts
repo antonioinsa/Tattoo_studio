@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColu
 import { Client } from "./Client"
 import { Worker } from "./Worker"
 
-@Entity("appointment")
+@Entity("appointments")
 export class Appointment extends BaseEntity {
 
     @PrimaryGeneratedColumn()
@@ -40,10 +40,11 @@ export class Appointment extends BaseEntity {
 
     @ManyToOne(() => Client, (client) => client.clientAppointments)
     @JoinColumn({ name: "client_id" })
-    clientAppointment!: Client
+    clientAppointment!: Client;
 
     @ManyToOne(() => Worker, (worker) => worker.workerAppointments)
     @JoinColumn({ name: "tattoo_artist_id" })
-    workerAppointment!: Worker[]
+    workerAppointment!: Worker;
+
 
 }

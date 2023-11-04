@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Appointment } from "./Appointment"
 import { Portfolio } from "./Portfolio"
+import { Client } from "./Client"
 
 @Entity("workers")
 export class Worker extends BaseEntity {
@@ -37,11 +38,24 @@ export class Worker extends BaseEntity {
     @Column()
     updated_at!: Date
 
-    @OneToMany(() => Appointment, (appointment) => appointment.workerAppointment)
-    workerAppointments!: Appointment[]
-
+    
     @OneToMany(() => Portfolio, (portfolio) => portfolio.workerPortfolio)
-    workerPortfolios!: Portfolio[]
+    workerPortfolios!: Portfolio[];
 
+    @OneToMany(() => Appointment, (appointment) => appointment.workerAppointment)
+    workerAppointments!: Appointment[];
+    
+    @ManyToMany ( () => Client)
+    @JoinTable ({
+      name:"appointments",
+      joinColumn:{
+          name:"tattoo_artist_id",
+          referencedColumnName: "id",
+      },
+      inverseJoinColumn: {
+          name:"client_id",
+          referencedColumnName:"id",
+      }
+    })workerClients!:Client [];
 }
 

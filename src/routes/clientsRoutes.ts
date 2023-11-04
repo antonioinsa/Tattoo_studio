@@ -10,10 +10,9 @@ router.post('/register', register)
 router.post('/login', login)
 router.get('/account', authUser, account)
 router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
-//router.get('/consultAnAppointment', authUser, consult)
 router.get('/clients',authUser, authSuperAdmin, allClients)
 router.delete('/delete', authUser, authSuperAdmin, removeClientById)
-
+//router.get('/consultAnAppointment', authUser, consult)
 
 
 export { router }

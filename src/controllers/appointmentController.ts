@@ -5,26 +5,31 @@ import { Appointment } from "../models/Appointment";
 const createAppointment = async (req: Request, res: Response) => {
     try {
 
-        if (req.token.id === req.body.client) {
-            const { intervention_type, day, hour, article, description } = req.body
+        //if (req.token.id === req.body.client) {
+        const { price, client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
+        console.log("llega1");
+        console.log(req.body.price);
+        const newAppointment = await Appointment.create({
 
-            const newAppointment = await Appointment.create({
-                intervention_type: intervention_type,
-                day: day,
-                hour: hour,
-                article: article,
-                description: description,
-            }).save()
-
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: "Appointment created succesfully",
-                        appointment: newAppointment
-                    }
-                )
-        }
+            client_id,
+            tattoo_artist_id,
+            intervention_type,
+            price,
+            day,
+            hour,
+            article,
+            description,
+        }).save()
+        console.log("llega2")
+        return res.status(200).json
+            (
+                {
+                    success: true,
+                    message: "Appointment created succesfully",
+                    appointment: newAppointment
+                }
+            )
+        //}
 
     } catch (error) {
         return res.status(500).json({

@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Appointment } from "./Appointment"
+import { Worker } from "./Worker"
 
 @Entity("clients")
 export class Client extends BaseEntity {
@@ -36,6 +37,18 @@ export class Client extends BaseEntity {
 
     @OneToMany(() => Appointment, (appointment) => appointment.clientAppointment)
     clientAppointments!: Appointment[]
-    //manytomany con su jointable hacia artist
+    
+    @ManyToMany ( () => Worker)
+  @JoinTable ({
+    name:"appointments",
+    joinColumn:{
+        name:"client_id",
+        referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+        name:"tattoo_artist_id",
+        referencedColumnName:"id",
+    }
+  })clientWorkers!:Worker [];
 
 }
