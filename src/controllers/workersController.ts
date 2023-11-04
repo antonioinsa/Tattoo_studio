@@ -5,6 +5,35 @@ import jwt from "jsonwebtoken";
 
 const getWorkers = async (req: Request, res: Response) => {
     try {
+        const workers = await Worker.find({
+            where: {
+                role: "user",
+            },
+            select: ["first_name", "last_name", "nationality"]
+        })
+
+        return res.status(200).json
+            (
+                {
+                    success: true,
+                    message: "Workers retrieved",
+                    data: workers
+                }
+            )
+    } catch (error) {
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Workers cant be retrieved",
+                    error: error
+                }
+            )
+    }
+}
+
+const workersFiles = async (req: Request, res: Response) => {
+    try {
         const workers = await Worker.find()
 
         return res.status(200).json
@@ -89,14 +118,14 @@ const login = async (req: Request, res: Response) => {
             return res.status(401).json
                 ({
                     success: true,
-                    message: "Worker or password incorrect1"
+                    message: "Worker or password incorrect"
                 })
         }
         if (!bcrypt.compareSync(password, worker.password)) {
             return res.status(401).json
                 ({
                     success: true,
-                    message: "Worker or password incorrect2"
+                    message: "Worker or password incorrect"
                 })
         }
 
@@ -116,7 +145,7 @@ const login = async (req: Request, res: Response) => {
             (
                 {
                     success: true,
-                    message: "Worker logged succesfully",
+                    message: `Worker logged succesfully`,
                     token: token
                 }
             )
@@ -139,7 +168,6 @@ const updateWorkerById = async (req: Request, res: Response) => {
         const workerId = req.body.id;
         const { first_name, last_name, phone, email, password, nationality } = req.body;
 
-        // Busca al trabajador por su ID
         const workerToUpdate = await Worker.findOneBy({ id: workerId })
 
         if (!workerToUpdate) {
@@ -190,15 +218,17 @@ const updateWorkerById = async (req: Request, res: Response) => {
             success: true,
             message: `${workerId} updated successfully`,
             data: updatedWorker
-        });
+        })
+
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: "Worker profile could not be updated",
             error: error
-        });
+        })
     }
-};
+
+}
 
 
 const deleteWorkerById = async (req: Request, res: Response) => {
@@ -244,21 +274,25 @@ const changeRoleBySuperAdmin = async (req: Request, res: Response) => {
         const id = req.body.id
         const role = req.body.role
 
-        const changeRole = await Worker.update
-        (
-            {
-                id: id
-            },
-            {
-                role: role
-            }
-        )
+        await Worker.update
+            (
+                {
+                    id: id
+                },
+                {
+                    role: role
+                }
+            )
+            
+        const updatedWorker = await Worker.findOne({where: {id: id}
+        })
+        
         return res.status(200).json
             (
                 {
                     success: true,
                     message: "Role change successfully",
-                    data: changeRole
+                    data: updatedWorker
                 }
             )
 
@@ -273,4 +307,4 @@ const changeRoleBySuperAdmin = async (req: Request, res: Response) => {
             )
     }
 }
-export { getWorkers, register, login, updateWorkerById, deleteWorkerById, changeRoleBySuperAdmin }
+export { getWorkers, workersFiles, register, login, updateWorkerById, deleteWorkerById, changeRoleBySuperAdmin }

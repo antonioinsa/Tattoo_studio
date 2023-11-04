@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
 
+
 const createAppointment = async (req: Request, res: Response) => {
     try {
 
@@ -58,7 +59,7 @@ const updateAppointmentById = async (req: Request, res: Response) => {
                     { id: parseInt(appointmentToUpdate) }
                 )
 
-                return res.status(200).json
+            return res.status(200).json
                 (
                     {
                         success: true,
@@ -126,7 +127,7 @@ const workerUpdateAppointmentById = async (req: Request, res: Response) => {
                 { id: parseInt(appointmentToUpdate) },
                 {
 
-                   price: price
+                    price: price
                 }
             )
 
@@ -145,12 +146,72 @@ const workerUpdateAppointmentById = async (req: Request, res: Response) => {
                 )
         }
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Price cant be updated",
-            error: error
-        })
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Price cant be updated",
+                    error: error
+                }
+            )
     }
 }
 
-export { createAppointment, deleteAppointmentById, updateAppointmentById, workerUpdateAppointmentById }
+const clientAppointments = async (req: Request, res: Response) => {
+    try {
+
+        if (req.token.id === req.body.id) {
+            const clientId = req.body.id
+
+            const myAppointment = await Appointment.find({
+                where: { client_id: clientId },
+                select: {
+                    id: true,
+                    tattoo_artist_id: true,
+                    intervention_type: true,
+                    price: true,
+                    day: true,
+                    hour: true,
+                    article: true,
+                    description: true
+                },
+                relations: {
+                    clientAppointment: true,
+                    workerAppointment: true,
+                    //productPortfolio: true,
+                },
+            })
+
+            const customAppointment = myAppointment.map((appointment) => ({
+                Client: appointment.clientAppointment.first_name,
+                type: appointment.intervention_type,
+                price: appointment.price,
+                appointment_day: appointment.day,
+                appointment_hour: appointment.hour,
+                //description: appointment.productPortfolio.description,
+                //tattoo_artist: appointment.workerAppointment.first_name
+            }))
+
+            return res.status(200).json
+                (
+                    {
+                        success: true,
+                        message: `ID ${clientId}, this is your appointment`,
+                        appointment: customAppointment
+                    }
+                )
+        }
+    } catch (error) {
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    message: "Dont show your appointment",
+                    error: error
+                }
+            )
+    }
+}
+
+
+export { createAppointment, deleteAppointmentById, updateAppointmentById, workerUpdateAppointmentById, clientAppointments }
