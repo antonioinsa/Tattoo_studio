@@ -1,44 +1,78 @@
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
-
+import { Client } from "../models/Client";
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
+        const { client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
 
-        //if (req.token.id === req.body.client) {
-        const { price, client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
-        console.log("llega1");
-        console.log(req.body.price);
-        const newAppointment = await Appointment.create({
+        const newAppointment = await Appointment.create(
+            {
+                client_id,
+                tattoo_artist_id,
+                intervention_type,
+                day,
+                hour,
+                article,
+                description
+            }
+        ).save()
 
-            client_id,
-            tattoo_artist_id,
-            intervention_type,
-            price,
-            day,
-            hour,
-            article,
-            description,
-        }).save()
-        console.log("llega2")
-        return res.status(200).json
-            (
-                {
-                    success: true,
-                    message: "Appointment created succesfully",
-                    appointment: newAppointment
-                }
-            )
-        //}
+        return res.json(
+            {
+                success: true,
+                message: "users retrieved",
+                data: newAppointment
+            }
+        )
 
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Appointment cant be created",
-            error: error
-        })
+        return res.status(500).json(
+            {
+                success: false,
+                message: "task cant be created",
+                error: error
+            }
+        )
     }
 }
+
+//const createAppointment = async (req: Request, res: Response) => {
+//    try {
+//
+//        //if (req.token.id === req.body.client) {
+//        const { client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
+//        console.log("llega1");
+//        console.log(req.body.price);
+//        const newAppointment = await Appointment.create({
+//
+//            client_id,
+//            tattoo_artist_id,
+//            intervention_type,
+//            day,
+//            hour,
+//            article,
+//            description,
+//        }).save()
+//        console.log("llega2")
+//        return res.status(200).json
+//            (
+//                {
+//                    success: true,
+//                    message: "Appointment created succesfully",
+//                    appointment: newAppointment
+//                }
+//            )
+//        //}
+//
+//    } catch (error) {
+//        return res.status(500).json({
+//            success: false,
+//            message: "Appointment cant be created",
+//            error: error
+//        })
+//    }
+//}
 
 const updateAppointmentById = async (req: Request, res: Response) => {
     try {

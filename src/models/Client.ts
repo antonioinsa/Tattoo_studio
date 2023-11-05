@@ -5,50 +5,50 @@ import { Worker } from "./Worker"
 @Entity("clients")
 export class Client extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id!: number
+  @PrimaryGeneratedColumn()
+  id!: number
 
-    @Column()
-    first_name!: string
+  @Column()
+  first_name!: string
 
-    @Column()
-    last_name!: string
+  @Column()
+  last_name!: string
 
-    @Column()
-    email!: string
+  @Column()
+  email!: string
 
-    @Column()
-    phone!: string
+  @Column()
+  phone!: string
 
-    @Column()
-    password!: string
+  @Column()
+  password!: string
 
-    @Column()
-    is_active!: boolean
+  @Column()
+  is_active!: boolean
 
-    @Column()
-    role!: string
+  @Column()
+  role!: string
 
-    @Column()
-    created_at!: string
+  @Column()
+  created_at!: Date
 
-    @Column()
-    updated_at!: string
+  @Column()
+  updated_at!: Date
 
-    @OneToMany(() => Appointment, (appointment) => appointment.clientAppointment)
-    clientAppointments!: Appointment[]
-    
-    @ManyToMany ( () => Worker)
-  @JoinTable ({
-    name:"appointments",
-    joinColumn:{
-        name:"client_id",
-        referencedColumnName: "id",
+  @OneToMany(() => Appointment, (appointment) => appointment.clientAppointment)
+  clientAppointments!: Appointment[]
+
+  @ManyToMany(() => Worker)
+  @JoinTable({
+    name: "appointments",
+    joinColumn: {
+      name: "client_id",
+      referencedColumnName: "id",
     },
     inverseJoinColumn: {
-        name:"tattoo_artist_id",
-        referencedColumnName:"id",
+      name: "tattoo_artist_id",
+      referencedColumnName: "id",
     }
-  })clientWorkers!:Worker [];
+  }) clientWorkers!: Worker[];
 
 }

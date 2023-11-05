@@ -17,14 +17,16 @@ export class Appointment extends BaseEntity {
     @Column()
     intervention_type!: string
 
-    @Column()
-    price!: string
+    @Column({ type: "decimal", precision: 7, scale: 2, default: 0 })
+    price!: number
 
-    @Column()
+
+    @Column({ type: "enum", enum: ["monday", "tuesday", "wednesday", "thursday", "friday"] })
     day!: string
 
-    @Column()
+    @Column({ type: "enum", enum: ["morning", "afternoon"] })
     hour!: string
+
 
     @Column()
     article!: string
@@ -32,11 +34,11 @@ export class Appointment extends BaseEntity {
     @Column()
     description!: string
 
-    @Column()
-    created_at!: string
+    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+    created_at!: Date
 
-    @Column()
-    updated_at!: string
+    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
+    updated_at!: Date
 
     @ManyToOne(() => Client, (client) => client.clientAppointments)
     @JoinColumn({ name: "client_id" })

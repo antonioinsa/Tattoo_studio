@@ -29,8 +29,10 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                     },
                     {
                         name: "price",
-                        type: "varchar",
-                        length: "8"
+                        type: "decimal",
+                        precision: 7,
+                        scale: 2,
+                        default: "0"
                     },
                     {
                         name: "day",
@@ -40,7 +42,7 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                     {
                         name: "hour",
                         type: "enum",
-                        enum: ["09:00", "11:00", "11:30", "12:00", "16:30", "17:00", "17:30", "18:00"]
+                        enum: ["morning", "afternoon"]
                     },
                     {
                         name: "article",

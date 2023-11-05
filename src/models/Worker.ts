@@ -38,24 +38,24 @@ export class Worker extends BaseEntity {
     @Column()
     updated_at!: Date
 
-    
+
     @OneToMany(() => Portfolio, (portfolio) => portfolio.workerPortfolio)
     workerPortfolios!: Portfolio[];
 
     @OneToMany(() => Appointment, (appointment) => appointment.workerAppointment)
     workerAppointments!: Appointment[];
-    
-    @ManyToMany ( () => Client)
-    @JoinTable ({
-      name:"appointments",
-      joinColumn:{
-          name:"tattoo_artist_id",
-          referencedColumnName: "id",
-      },
-      inverseJoinColumn: {
-          name:"client_id",
-          referencedColumnName:"id",
-      }
-    })workerClients!:Client [];
+
+    @ManyToMany(() => Client)
+    @JoinTable({
+        name: "appointments",
+        joinColumn: {
+            name: "tattoo_artist_id",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "client_id",
+            referencedColumnName: "id",
+        }
+    }) workerClients!: Client[];
 }
 
