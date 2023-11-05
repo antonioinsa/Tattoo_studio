@@ -1,4 +1,7 @@
 # Welcome to my backend app
+<div align="center">
+  <img src="./src/images/logo_tattoo_studio.png" alt="imagen-db" width="300" height="300" />
+</div>
 <br></br>
 <div>
 <a href = "antonioinsa@tutanota.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
@@ -85,40 +88,7 @@ Tecnologías utilizadas:
 6. ``` $ npm run dev ``` 
 
 ## Endpoints
-<details>
-<summary>Endpoints</summary>
-
-- AUTH
-    - REGISTER
-
-            POST http://localhost:3000/api/register
-        body:
-        ``` js
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        ```
-
-    - LOGIN
-
-            POST http://localhost:3000/api/login  
-        body:
-        ``` js
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        ```
-- RUTINAS
-    - RECUPERAR RUTINAS  
-
-            GET http://localhost:3000/api/rutina
-
-    - ...
-</details>
+<a href="./src/http/thunder-collection_Tattoo_studio.json">Click aqui para acceder al JSON</a>
 
 ## Licencia
 Proyecto desarrollado por Antonio Insa Benavent, bajo licencia MIT.
