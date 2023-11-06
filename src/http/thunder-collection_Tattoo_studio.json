@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tattoo_studio",
-    "dateExported": "2023-11-06T02:38:11.837Z",
+    "dateExported": "2023-11-06T08:44:40.008Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -371,6 +371,24 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW5jaGV6QG1pYXUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTkyMzY2NDksImV4cCI6MTY5OTI0Mzg0OX0.lJkJJOnVb3D8eJq-RqK5lQsBRySrnLnKwl_33txWFvQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "376adfdb-4920-4729-9519-d3a89b84df16",
+            "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
+            "containerId": "",
+            "name": "cita tatuador con el cliente",
+            "url": "localhost:3000/appointment/tattooArtistAppointment",
+            "method": "GET",
+            "sortNum": 210000,
+            "created": "2023-11-06T08:44:30.405Z",
+            "modified": "2023-11-06T08:44:30.405Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW5jaGV6QG1pYXUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTkyNTg4MDEsImV4cCI6MTY5OTI2NjAwMX0.LiJIyBqk2fjYmnb7IqTz7t1ZzJGGE2hkbw6viRQ0CN0"
             },
             "tests": []
         }

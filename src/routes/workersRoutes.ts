@@ -10,7 +10,6 @@ router.get('/', authUser, authSuperAdmin, workersFiles)
 router.post('/register', authUser, authSuperAdmin, register)
 router.put('/update',authUser, authSuperAdmin, updateWorkerById)
 router.delete('/delete', authUser, authSuperAdmin, deleteWorkerById)
-//router.get('/consultAnAppointment', authUser, consult)
 router.put('/changeRole', authUser, authSuperAdmin, changeRoleBySuperAdmin)
 
 
