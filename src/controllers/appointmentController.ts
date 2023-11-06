@@ -189,53 +189,60 @@ const workerUpdateAppointmentById = async (req: Request, res: Response) => {
 
 const clientAppointments = async (req: Request, res: Response) => {
     try {
-        const clientId = req.token.id
-
-        if (clientId === req.body.id) {
-            const clientAppointments = await Appointment.find({
-                where: { client_id: clientId },
-                select: [
-                    "id",
-                    "tattoo_artist_id",
-                    "intervention_type",
-                    "price",
-                    "day",
-                    "hour",
-                    "article",
-                    "description"
-                ],
-                relations: ["clientAppointment", "workerAppointment", "workerAppointment.productPortfolio"]
-            })
-
-            const customAppointments = clientAppointments.map((appointment) => ({
-                tattoo_artist: appointment.workerAppointment.first_name,
-                type: appointment.intervention_type,
-                price: appointment.price,
-                appointment_day: appointment.day,
-                appointment_hour: appointment.hour,
-                description: appointment.description,
-                article: appointment.article
-            }))
-
-            return res.status(200).json({
-                success: true,
-                message: `Appointments for ID ${clientId}`,
-                appointments: customAppointments
-            })
-        } else {
+        if (req.token.role !== "user") {
             return res.status(403).json({
                 success: false,
-                message: "Unauthorized: Client ID doesn't match"
+                message: "Unauthorized: Insufficient permissions"
             })
         }
+
+        const client = await Client.findOne({
+            where: { id: req.token.id },
+        });
+
+        if (!client) {
+            return res.status(400).json("Client does not exist")
+        }
+
+        const clientAppointments = await Appointment.find({
+            where: { client_id: req.token.id },
+            select: [
+                "id",
+                "tattoo_artist_id",
+                "intervention_type",
+                "price",
+                "day",
+                "hour",
+                "article",
+                "description",
+            ],
+            relations: ["clientAppointment", "workerAppointment"]
+        })
+
+        const customAppointments = clientAppointments.map((appointment) => ({
+            tattoo_artist: appointment.workerAppointment.first_name,
+            type: appointment.intervention_type,
+            price: appointment.price,
+            appointment_day: appointment.day,
+            appointment_hour: appointment.hour,
+            description: appointment.description,
+            article: appointment.article
+        }))
+
+        return res.status(200).json({
+            success: true,
+            message: `Appointments for ID ${req.token.id}`,
+            appointments: customAppointments
+        })
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Couldn't fetch appointments",
+            message: "Could not fetch appointments",
             error: error
         })
     }
 }
+
 
 
 
