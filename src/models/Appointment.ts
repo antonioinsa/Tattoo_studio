@@ -21,12 +21,11 @@ export class Appointment extends BaseEntity {
     price!: number
 
 
-    @Column({ type: "enum", enum: ["monday", "tuesday", "wednesday", "thursday", "friday"] })
-    day!: string
+    @Column({ type: "date" })
+    date!: string;
 
     @Column({ type: "enum", enum: ["morning", "afternoon"] })
     hour!: string
-
 
     @Column()
     article!: string

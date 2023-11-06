@@ -1,43 +1,82 @@
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
 import { Client } from "../models/Client";
+import dayjs from "dayjs";
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
-        if ((req.token.role == "user")) {
-
-            const client = await Client.findOne({
-                where: { id: req.token.id },
-            });
-            if (!client) {
-                return res.status(400).json("Client does not exist")
-            }
-            const { tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
-
-
-            const newAppointment = await Appointment.create({
-                client_id: client.id,
-                tattoo_artist_id,
-                intervention_type,
-                day,
-                hour,
-                article,
-                description
-            }).save()
-
-            return res.json({
-                success: true,
-                message: "Appointment created successfully",
-                data: newAppointment
+        if (req.token.role !== "user") {
+            return res.status(403).json({
+                success: false,
+                message: "Unauthorized"
             })
+        }
+        const client = await Client.findOne({
+            where: { id: req.token.id },
+        })
+        if (!client) {
+            return res.status(400).json("Client does not exist")
+        }
+        const { tattoo_artist_id, intervention_type, hour, date, article, description } = req.body
+        const dateBody = dayjs(date, "'{AAAA} MM-DDTHH:mm:ss SSS [Z] A'");
+        const dateNow = dayjs();
 
+        if (!dateBody.isValid() || dateBody < dateNow) {
+            return res.status(400).json
+                (
+                    {
+                        success: false,
+                        message: "Invalid date, before the appointment creation"
+                    }
+                )
         }
 
+        if (!dateBody) {
+            return res.status(400).json
+                (
+                    {
+                        success: false,
+                        message: "Cant null"
+                    }
+                )
+        }
+
+        const existAppointment = await Appointment.findOne
+            (
+                {
+                    where: { tattoo_artist_id: tattoo_artist_id, date: dateBody.toDate() },
+                }
+            )
+        if (existAppointment) {
+            return res.json("Cita no disponible: Introduce otra fecha y hora.");
+        }
+
+        const newAppointment = await Appointment.create({
+            client_id: client.id,
+            tattoo_artist_id,
+            intervention_type,
+            date: dateBody.toDate(),
+            hour,
+            article,
+            description
+        }).save()
+
+        return res.json
+            (
+                {
+                    success: true,
+                    message: "Appointment created successfully",
+                    data: newAppointment
+                }
+            )
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error
-        })
+        return res.status(500).json
+            (
+                {
+                    success: false,
+                    error: error
+                }
+            )
     }
 
 }
@@ -56,7 +95,7 @@ const updateAppointmentById = async (req: Request, res: Response) => {
         if (!client) {
             return res.status(400).json("Client does not exist")
         }
-        const { id, day, hour } = req.body
+        const { id, hour, date } = req.body
 
         const appointmentToUpdate = await Appointment.findOne({
             where: { id: parseInt(id), client_id: req.token.id }
@@ -73,7 +112,7 @@ const updateAppointmentById = async (req: Request, res: Response) => {
             { id: parseInt(id) },
             {
                 client_id: client.id,
-                day: day,
+                date: date,
                 hour: hour
             }
         )
@@ -211,7 +250,7 @@ const clientAppointments = async (req: Request, res: Response) => {
                 "tattoo_artist_id",
                 "intervention_type",
                 "price",
-                "day",
+                "date",
                 "hour",
                 "article",
                 "description",
@@ -223,7 +262,7 @@ const clientAppointments = async (req: Request, res: Response) => {
             tattoo_artist: appointment.workerAppointment.first_name,
             type: appointment.intervention_type,
             price: appointment.price,
-            appointment_day: appointment.day,
+            appointment_date: appointment.date,
             appointment_hour: appointment.hour,
             description: appointment.description,
             article: appointment.article
@@ -259,11 +298,11 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
                 "client_id",
                 "intervention_type",
                 "price",
-                "day",
+                "date",
                 "hour",
                 "article",
                 "description",
-                
+
             ],
             relations: ["clientAppointment", "workerAppointment"]
         });
@@ -273,7 +312,7 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
             phone: appointment.clientAppointment.phone,
             type: appointment.intervention_type,
             price: appointment.price,
-            appointment_day: appointment.day,
+            appointment_date: appointment.date,
             appointment_hour: appointment.hour,
             description: appointment.description,
             article: appointment.article
@@ -295,5 +334,7 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
 
 
 
-export { createAppointment, deleteAppointmentById, updateAppointmentById,
-    workerUpdateAppointmentById, clientAppointments, tattooArtistAppointments }
+export {
+    createAppointment, deleteAppointmentById, updateAppointmentById,
+    workerUpdateAppointmentById, clientAppointments, tattooArtistAppointments
+}

@@ -35,15 +35,16 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                         default: "0"
                     },
                     {
-                        name: "day",
-                        type: "enum",
-                        enum: ["monday", "tuesday", "wednesday", "thursday", "friday"]
+                        name: "date",
+                        type: "date",
+                        isNullable: false
                     },
                     {
                         name: "hour",
                         type: "enum",
                         enum: ["morning", "afternoon"]
                     },
+
                     {
                         name: "article",
                         type: "varchar",

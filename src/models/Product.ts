@@ -2,10 +2,10 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "t
 import { Portfolio } from "./Portfolio"
 
 @Entity("products")
-export class Product extends BaseEntity{
+export class Product extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number
-    
+
     @Column()
     description!: string
 

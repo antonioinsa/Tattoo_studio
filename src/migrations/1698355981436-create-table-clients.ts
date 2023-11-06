@@ -48,7 +48,7 @@ export class CreateTableClients1698355981436 implements MigrationInterface {
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["user","admin", "superAdmin"],
+                        enum: ["user", "admin", "superAdmin"],
                         default: '"user"'
                     },
                     {
