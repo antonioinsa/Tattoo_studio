@@ -283,10 +283,11 @@ const changeRoleBySuperAdmin = async (req: Request, res: Response) => {
                     role: role
                 }
             )
-            
-        const updatedWorker = await Worker.findOne({where: {id: id}
+
+        const updatedWorker = await Worker.findOne({
+            where: { id: id }
         })
-        
+
         return res.status(200).json
             (
                 {
