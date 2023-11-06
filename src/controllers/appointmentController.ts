@@ -29,7 +29,7 @@ const createAppointment = async (req: Request, res: Response) => {
                 success: true,
                 message: "Appointment created successfully",
                 data: newAppointment
-            });
+            })
 
         }
 
@@ -37,45 +37,58 @@ const createAppointment = async (req: Request, res: Response) => {
         return res.status(500).json({
             success: false,
             message: error
-        });
+        })
     }
 
 }
 
 const updateAppointmentById = async (req: Request, res: Response) => {
     try {
-        if ((req.token.role == "user")) {
+        if (req.token.role !== "user") {
+            return res.status(403).json({
+                success: false,
+                message: "Unauthorized: Insufficient permissions"
+            })
+        }
+        const client = await Client.findOne({
+            where: { id: req.token.id },
+        })
+        if (!client) {
+            return res.status(400).json("Client does not exist")
+        }
+        const { id, day, hour } = req.body
 
-            const client = await Client.findOne({
-                where: { id: req.token.id },
-            });
-            if (!client) {
-                return res.status(400).json("Client does not exist")
+        const appointmentToUpdate = await Appointment.findOne({
+            where: { id: parseInt(id), client_id: req.token.id }
+        })
+
+        if (!appointmentToUpdate) {
+            return res.status(404).json({
+                success: false,
+                message: `Appointment ID ${id} not found for this client`
+            })
+        }
+
+        await Appointment.update(
+            { id: parseInt(id) },
+            {
+                client_id: client.id,
+                day: day,
+                hour: hour
             }
-            const { appointmentId, day, hour } = req.body
-
-            await Appointment.update(
-                { id: parseInt(appointmentId) },
+        )
+        const updatedAppointment = await Appointment.findOne({
+            where: { id: parseInt(id), client_id: req.token.id }
+        })
+        return res.status(200).json
+            (
                 {
-                    client_id: client.id,
-                    day: day,
-                    hour: hour
+                    success: true,
+                    message: "Appointment updated succesfully",
+                    appointment: updatedAppointment
                 }
             )
-            const updatedAppointment = await Appointment.findOneBy
-                (
-                    { id: parseInt(appointmentId) }
-                )
 
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: "Appointment updated succesfully",
-                        appointment: updatedAppointment
-                    }
-                )
-        }
     } catch (error) {
         return res.status(500).json({
             success: false,
