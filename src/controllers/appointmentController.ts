@@ -149,100 +149,94 @@ const deleteAppointmentById = async (req: Request, res: Response) => {
 
 const workerUpdateAppointmentById = async (req: Request, res: Response) => {
     try {
-        const price = req.body.id
+        const { id: appointmentId, price } = req.body
+        const tattooArtistId = req.token.id
 
-        if (req.token.id === req.body.tattoo_artist_id) {
-            const appointmentToUpdate = req.body.id
+        const appointmentToUpdate = await Appointment.findOne({
+            where: { id: parseInt(appointmentId), tattoo_artist_id: tattooArtistId }
+        });
 
-            await Appointment.update(
-                { id: parseInt(appointmentToUpdate) },
-                {
-
-                    price: price
-                }
-            )
-
-            const updatedAppointment = await Appointment.findOneBy
-                (
-                    { id: parseInt(appointmentToUpdate) }
-                )
-
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: "Price updated succesfully",
-                        appointment: updatedAppointment
-                    }
-                )
+        if (!appointmentToUpdate) {
+            return res.status(404).json({
+                success: false,
+                message: `Appointment ID ${appointmentId} not found or not authorized for this worker`
+            });
         }
+
+        await Appointment.update(
+            { id: parseInt(appointmentId) },
+            { price: price }
+        );
+
+        const updatedAppointment = await Appointment.findOne({
+            where: { id: parseInt(appointmentId), tattoo_artist_id: tattooArtistId }
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Price updated successfully",
+            appointment: updatedAppointment
+        });
     } catch (error) {
-        return res.status(500).json
-            (
-                {
-                    success: false,
-                    message: "Price cant be updated",
-                    error: error
-                }
-            )
+        return res.status(500).json({
+            success: false,
+            message: "Price can't be updated",
+            error: error
+        });
     }
-}
+};
+
 
 const clientAppointments = async (req: Request, res: Response) => {
     try {
+        const clientId = req.token.id
 
-        if (req.token.id === req.body.id) {
-            const clientId = req.body.id
-
-            const myAppointment = await Appointment.find({
+        if (clientId === req.body.id) {
+            const clientAppointments = await Appointment.find({
                 where: { client_id: clientId },
-                select: {
-                    id: true,
-                    tattoo_artist_id: true,
-                    intervention_type: true,
-                    price: true,
-                    day: true,
-                    hour: true,
-                    article: true,
-                    description: true
-                },
-                relations: {
-                    clientAppointment: true,
-                    workerAppointment: true,
-                    //productPortfolio: true,
-                },
+                select: [
+                    "id",
+                    "tattoo_artist_id",
+                    "intervention_type",
+                    "price",
+                    "day",
+                    "hour",
+                    "article",
+                    "description"
+                ],
+                relations: ["clientAppointment", "workerAppointment", "workerAppointment.productPortfolio"]
             })
 
-            const customAppointment = myAppointment.map((appointment) => ({
-                Client: appointment.clientAppointment.first_name,
+            const customAppointments = clientAppointments.map((appointment) => ({
+                tattoo_artist: appointment.workerAppointment.first_name,
                 type: appointment.intervention_type,
                 price: appointment.price,
                 appointment_day: appointment.day,
                 appointment_hour: appointment.hour,
-                //description: appointment.productPortfolio.description,
-                //tattoo_artist: appointment.workerAppointment.first_name
+                description: appointment.description,
+                article: appointment.article
             }))
 
-            return res.status(200).json
-                (
-                    {
-                        success: true,
-                        message: `ID ${clientId}, this is your appointment`,
-                        appointment: customAppointment
-                    }
-                )
+            return res.status(200).json({
+                success: true,
+                message: `Appointments for ID ${clientId}`,
+                appointments: customAppointments
+            })
+        } else {
+            return res.status(403).json({
+                success: false,
+                message: "Unauthorized: Client ID doesn't match"
+            })
         }
     } catch (error) {
-        return res.status(500).json
-            (
-                {
-                    success: false,
-                    message: "Dont show your appointment",
-                    error: error
-                }
-            )
+        return res.status(500).json({
+            success: false,
+            message: "Couldn't fetch appointments",
+            error: error
+        })
     }
 }
+
 
 
 export { createAppointment, deleteAppointmentById, updateAppointmentById, workerUpdateAppointmentById, clientAppointments }
