@@ -47,7 +47,7 @@ const updateAppointmentById = async (req: Request, res: Response) => {
         if (req.token.role !== "user") {
             return res.status(403).json({
                 success: false,
-                message: "Unauthorized: Insufficient permissions"
+                message: "Unauthorized"
             })
         }
         const client = await Client.findOne({
@@ -103,7 +103,7 @@ const deleteAppointmentById = async (req: Request, res: Response) => {
         if (req.token.role !== "user") {
             return res.status(403).json({
                 success: false,
-                message: "Unauthorized: Insufficient permissions"
+                message: "Unauthorized"
             });
         }
         const client = await Client.findOne({
@@ -192,7 +192,7 @@ const clientAppointments = async (req: Request, res: Response) => {
         if (req.token.role !== "user") {
             return res.status(403).json({
                 success: false,
-                message: "Unauthorized: Insufficient permissions"
+                message: "Unauthorized"
             })
         }
 
@@ -243,7 +243,57 @@ const clientAppointments = async (req: Request, res: Response) => {
     }
 }
 
+const tattooArtistAppointments = async (req: Request, res: Response) => {
+    try {
+        if (req.token.role !== "user") {
+            return res.status(403).json({
+                success: false,
+                message: "Unauthorized"
+            });
+        }
+
+        const workerAppointments = await Appointment.find({
+            where: { tattoo_artist_id: req.token.id },
+            select: [
+                "id",
+                "client_id",
+                "intervention_type",
+                "price",
+                "day",
+                "hour",
+                "article",
+                "description",
+                
+            ],
+            relations: ["clientAppointment", "workerAppointment"]
+        });
+
+        const customAppointments = workerAppointments.map((appointment) => ({
+            client: appointment.clientAppointment.first_name,
+            phone: appointment.clientAppointment.phone,
+            type: appointment.intervention_type,
+            price: appointment.price,
+            appointment_day: appointment.day,
+            appointment_hour: appointment.hour,
+            description: appointment.description,
+            article: appointment.article
+        }));
+
+        return res.status(200).json({
+            success: true,
+            message: `Appointments for Tattoo Artist ID ${req.token.id}`,
+            appointments: customAppointments
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Could not fetch appointments",
+            error: error
+        });
+    }
+};
 
 
 
-export { createAppointment, deleteAppointmentById, updateAppointmentById, workerUpdateAppointmentById, clientAppointments }
+export { createAppointment, deleteAppointmentById, updateAppointmentById,
+    workerUpdateAppointmentById, clientAppointments, tattooArtistAppointments }
