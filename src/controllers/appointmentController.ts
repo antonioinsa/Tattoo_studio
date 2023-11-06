@@ -4,75 +4,43 @@ import { Client } from "../models/Client";
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
-        const { client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
+        if ((req.token.role == "user")) {
 
-        const newAppointment = await Appointment.create(
-            {
-                client_id,
+            const client = await Client.findOne({
+                where: { id: req.token.id },
+            });
+            if (!client) {
+                return res.json("El usuario no existe.");
+            }
+            const { tattoo_artist_id, intervention_type, day, hour, article, description } = req.body;
+
+
+            const newAppointment = await Appointment.create({
+                client_id: client.id,
                 tattoo_artist_id,
                 intervention_type,
                 day,
                 hour,
                 article,
                 description
-            }
-        ).save()
+            }).save()
 
-        return res.json(
-            {
+            return res.json({
                 success: true,
-                message: "users retrieved",
+                message: 'Cita creada exitosamente',
                 data: newAppointment
-            }
-        )
+            });
 
-    } catch (error) {
-        return res.status(500).json(
-            {
-                success: false,
-                message: "task cant be created",
-                error: error
-            }
-        )
+        }
+
+    }catch (error) {
+        return res.status(401).json({
+            success: false,
+            message: 'No se pudo crear la cita. ' + error
+        });
     }
-}
 
-//const createAppointment = async (req: Request, res: Response) => {
-//    try {
-//
-//        //if (req.token.id === req.body.client) {
-//        const { client_id, tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
-//        console.log("llega1");
-//        console.log(req.body.price);
-//        const newAppointment = await Appointment.create({
-//
-//            client_id,
-//            tattoo_artist_id,
-//            intervention_type,
-//            day,
-//            hour,
-//            article,
-//            description,
-//        }).save()
-//        console.log("llega2")
-//        return res.status(200).json
-//            (
-//                {
-//                    success: true,
-//                    message: "Appointment created succesfully",
-//                    appointment: newAppointment
-//                }
-//            )
-//        //}
-//
-//    } catch (error) {
-//        return res.status(500).json({
-//            success: false,
-//            message: "Appointment cant be created",
-//            error: error
-//        })
-//    }
-//}
+}
 
 const updateAppointmentById = async (req: Request, res: Response) => {
     try {
