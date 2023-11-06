@@ -10,9 +10,9 @@ const createAppointment = async (req: Request, res: Response) => {
                 where: { id: req.token.id },
             });
             if (!client) {
-                return res.json("El usuario no existe.");
+                return res.status(400).json("Client does not exist")
             }
-            const { tattoo_artist_id, intervention_type, day, hour, article, description } = req.body;
+            const { tattoo_artist_id, intervention_type, day, hour, article, description } = req.body
 
 
             const newAppointment = await Appointment.create({
@@ -27,16 +27,16 @@ const createAppointment = async (req: Request, res: Response) => {
 
             return res.json({
                 success: true,
-                message: 'Cita creada exitosamente',
+                message: "Appointment created successfully",
                 data: newAppointment
             });
 
         }
 
-    }catch (error) {
-        return res.status(401).json({
+    } catch (error) {
+        return res.status(500).json({
             success: false,
-            message: 'No se pudo crear la cita. ' + error
+            message: error
         });
     }
 
@@ -44,26 +44,27 @@ const createAppointment = async (req: Request, res: Response) => {
 
 const updateAppointmentById = async (req: Request, res: Response) => {
     try {
-        const { intervention_type, day, hour, article, description } = req.body
+        if ((req.token.role == "user")) {
 
-        if (req.token.id === req.body.client_id) {
-            const appointmentToUpdate = req.body.id
+            const client = await Client.findOne({
+                where: { id: req.token.id },
+            });
+            if (!client) {
+                return res.status(400).json("Client does not exist")
+            }
+            const { appointmentId, day, hour } = req.body
 
             await Appointment.update(
-                { id: parseInt(appointmentToUpdate) },
+                { id: parseInt(appointmentId) },
                 {
-
-                    intervention_type: intervention_type,
+                    client_id: client.id,
                     day: day,
-                    hour: hour,
-                    article: article,
-                    description: description,
+                    hour: hour
                 }
             )
-
             const updatedAppointment = await Appointment.findOneBy
                 (
-                    { id: parseInt(appointmentToUpdate) }
+                    { id: parseInt(appointmentId) }
                 )
 
             return res.status(200).json
@@ -86,31 +87,41 @@ const updateAppointmentById = async (req: Request, res: Response) => {
 
 const deleteAppointmentById = async (req: Request, res: Response) => {
     try {
-        if (req.token.id === req.body.client_id) {
-            const appointmentToDelete = req.body.id
-            const appointmentToRemove = await Appointment.findOneBy
-                (
-                    { id: parseInt(appointmentToDelete) }
-                )
-            if (!appointmentToRemove) {
-                return res.status(404).json
-                    (
-                        {
-                            success: false,
-                            message: (`Appointment ID ${appointmentToDelete} not found`)
-                        }
-                    )
-            }
-            const appointmentRemoved = await Appointment.remove(appointmentToRemove as Appointment);
-            return res.status(200).json
+        if (req.token.role !== "user") {
+            return res.status(403).json({
+                success: false,
+                message: "Unauthorized: Insufficient permissions"
+            });
+        }
+        const client = await Client.findOne({
+            where: { id: req.token.id },
+        });
+        if (!client) {
+            return res.status(400).json("Client does not exist")
+        }
+        const appointmentToDelete = req.body.id
+        const appointmentToRemove = await Appointment.findOne({
+            where: { id: parseInt(appointmentToDelete), client_id: req.token.id }
+        })
+        if (!appointmentToRemove) {
+            return res.status(404).json
                 (
                     {
-                        success: true,
-                        message: (`Appointment ID ${appointmentToDelete} has been deleted`),
-                        data: appointmentRemoved
+                        success: false,
+                        message: (`Appointment ID ${appointmentToDelete} not found`)
                     }
                 )
         }
+        const appointmentRemoved = await Appointment.remove(appointmentToRemove as Appointment);
+        return res.status(200).json
+            (
+                {
+                    success: true,
+                    message: (`Appointment ID ${appointmentToDelete} has been deleted`),
+                    data: appointmentRemoved
+                }
+            )
+
     } catch (error) {
         return res.status(500).json
             (
