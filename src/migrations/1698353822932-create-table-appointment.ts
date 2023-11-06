@@ -40,12 +40,6 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                         isNullable: false
                     },
                     {
-                        name: "hour",
-                        type: "enum",
-                        enum: ["morning", "afternoon"]
-                    },
-
-                    {
                         name: "article",
                         type: "varchar",
                         length: "200"

@@ -17,7 +17,7 @@ const createAppointment = async (req: Request, res: Response) => {
         if (!client) {
             return res.status(400).json("Client does not exist")
         }
-        const { tattoo_artist_id, intervention_type, hour, date, article, description } = req.body
+        const { tattoo_artist_id, intervention_type, date, article, description } = req.body
         const dateBody = dayjs(date, "'{AAAA} MM-DDTHH:mm:ss SSS [Z] A'");
         const dateNow = dayjs();
 
@@ -41,22 +41,19 @@ const createAppointment = async (req: Request, res: Response) => {
                 )
         }
 
-        const existAppointment = await Appointment.findOne
-            (
-                {
-                    where: { tattoo_artist_id: tattoo_artist_id, date: dateBody.toDate() },
-                }
-            )
+        const existAppointment = await Appointment.findOne({
+            where: { tattoo_artist_id: tattoo_artist_id, date: dateBody.toDate() },
+        });
+
         if (existAppointment) {
             return res.json("Cita no disponible: Introduce otra fecha y hora.");
         }
 
         const newAppointment = await Appointment.create({
             client_id: client.id,
-            tattoo_artist_id,
+            tattoo_artist_id: tattoo_artist_id,
             intervention_type,
             date: dateBody.toDate(),
-            hour,
             article,
             description
         }).save()
@@ -95,7 +92,38 @@ const updateAppointmentById = async (req: Request, res: Response) => {
         if (!client) {
             return res.status(400).json("Client does not exist")
         }
-        const { id, hour, date } = req.body
+        const { id, date } = req.body
+
+        const dateBody = dayjs(date, "'{AAAA} MM-DDTHH:mm:ss SSS [Z] A'");
+        const dateNow = dayjs();
+
+        if (!dateBody.isValid() || dateBody < dateNow) {
+            return res.status(400).json
+                (
+                    {
+                        success: false,
+                        message: "Invalid date, before the appointment creation"
+                    }
+                )
+        }
+
+        if (!dateBody) {
+            return res.status(400).json
+                (
+                    {
+                        success: false,
+                        message: "Cant null"
+                    }
+                )
+        }
+
+        const existAppointment = await Appointment.findOne({
+            where: { id: id, date: dateBody.toDate() },
+        });
+
+        if (existAppointment) {
+            return res.json("Cita no disponible: Introduce otra fecha y hora.");
+        }
 
         const appointmentToUpdate = await Appointment.findOne({
             where: { id: parseInt(id), client_id: req.token.id }
@@ -113,7 +141,6 @@ const updateAppointmentById = async (req: Request, res: Response) => {
             {
                 client_id: client.id,
                 date: date,
-                hour: hour
             }
         )
         const updatedAppointment = await Appointment.findOne({
@@ -198,7 +225,7 @@ const workerUpdateAppointmentById = async (req: Request, res: Response) => {
         if (!appointmentToUpdate) {
             return res.status(404).json({
                 success: false,
-                message: `Appointment ID ${appointmentId} not found or not authorized for this worker`
+                message: `Appointment ID ${appointmentId} not found or not authorized`
             });
         }
 
@@ -251,7 +278,6 @@ const clientAppointments = async (req: Request, res: Response) => {
                 "intervention_type",
                 "price",
                 "date",
-                "hour",
                 "article",
                 "description",
             ],
@@ -263,7 +289,6 @@ const clientAppointments = async (req: Request, res: Response) => {
             type: appointment.intervention_type,
             price: appointment.price,
             appointment_date: appointment.date,
-            appointment_hour: appointment.hour,
             description: appointment.description,
             article: appointment.article
         }))
@@ -299,7 +324,6 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
                 "intervention_type",
                 "price",
                 "date",
-                "hour",
                 "article",
                 "description",
 
@@ -313,7 +337,6 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
             type: appointment.intervention_type,
             price: appointment.price,
             appointment_date: appointment.date,
-            appointment_hour: appointment.hour,
             description: appointment.description,
             article: appointment.article
         }));

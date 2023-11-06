@@ -20,12 +20,8 @@ export class Appointment extends BaseEntity {
     @Column({ type: "decimal", precision: 7, scale: 2, default: 0 })
     price!: number
 
-
-    @Column({ type: "date" })
-    date!: string;
-
-    @Column({ type: "enum", enum: ["morning", "afternoon"] })
-    hour!: string
+    @Column()
+    date!: Date;
 
     @Column()
     article!: string
@@ -46,6 +42,8 @@ export class Appointment extends BaseEntity {
     @ManyToOne(() => Worker, (worker) => worker.workerAppointments)
     @JoinColumn({ name: "tattoo_artist_id" })
     workerAppointment!: Worker;
+
+    
 
 
 }

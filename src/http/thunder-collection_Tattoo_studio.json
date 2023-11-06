@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tattoo_studio",
-    "dateExported": "2023-11-06T08:44:40.008Z",
+    "dateExported": "2023-11-06T21:49:28.487Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -27,17 +27,17 @@
             "_id": "d9f3d31d-36fe-4819-a5aa-efa681a37c09",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Login",
+            "name": "Login (Clients)",
             "url": "localhost:3000/client/login",
             "method": "POST",
             "sortNum": 40000,
             "created": "2023-10-29T21:09:12.294Z",
-            "modified": "2023-11-06T02:10:49.111Z",
+            "modified": "2023-11-06T10:11:50.362Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"sanchez@miau.com\",\n  \"password\": \"123456789\"\n}",
+                "raw": "{\n  \"email\": \"david@david.com\",\n  \"password\": \"123456789\"\n}",
                 "form": []
             },
             "tests": []
@@ -46,17 +46,17 @@
             "_id": "20147a02-d9a3-419b-a98c-7c0d3ddd9016",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Register new client",
+            "name": "Register new (client)",
             "url": "localhost:3000/client/register",
             "method": "POST",
             "sortNum": 50000,
             "created": "2023-10-29T21:14:04.821Z",
-            "modified": "2023-11-04T18:11:11.130Z",
+            "modified": "2023-11-06T10:11:22.021Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"first_name\": \"Soraia\",\n  \"last_name\": \"Minguez Pisuaerga\",\n  \"phone\": \"677896952\",\n  \"email\": \"minguez@minguezl.com\",\n  \"password\": \"123456789\"\n}",
+                "raw": "{\n  \"first_name\": \"David\",\n  \"last_name\": \"Ochando Blasco\",\n  \"phone\": \"666555444\",\n  \"email\": \"david@david.com\",\n  \"password\": \"123456789\"\n}",
                 "form": []
             },
             "tests": []
@@ -83,22 +83,22 @@
             "_id": "9c03a5ac-a318-4723-afb6-d98481483583",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Update profile",
+            "name": "Update profile (client)",
             "url": "localhost:3000/client/account/modifyAccount",
             "method": "PUT",
             "sortNum": 70000,
             "created": "2023-10-31T17:15:14.388Z",
-            "modified": "2023-11-04T18:13:04.044Z",
+            "modified": "2023-11-06T10:12:47.526Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"phone\":\"678925489\"\n}",
+                "raw": "{\n  \"phone\":\"111111111\"\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJtaWd1ZWxAbWlndWVsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5MTIxNTA5LCJleHAiOjE2OTkxMjg3MDl9.HbgzyX1n-eNLdzulUQn3TJcYPjYFIgtI9RXDOEAvkU8"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTI2NTUxMCwiZXhwIjoxNjk5MjcyNzEwfQ.8gY2cFgWVCc6kQjVLPG0C46bRJsSGjwJC7wIC2pa_Vk"
             },
             "tests": []
         },
@@ -106,7 +106,7 @@
             "_id": "9ca515ba-b071-4f91-a41c-afd5159930e3",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Open Workers list",
+            "name": "Open Workers list (all people)",
             "url": "localhost:3000/worker/current",
             "method": "GET",
             "sortNum": 80000,
@@ -120,12 +120,12 @@
             "_id": "530a0335-88bd-4427-abc5-a7233f094952",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Login workers",
+            "name": "Login (workers)",
             "url": "localhost:3000/worker/login",
             "method": "POST",
             "sortNum": 90000,
             "created": "2023-11-01T17:49:17.268Z",
-            "modified": "2023-11-06T02:26:52.498Z",
+            "modified": "2023-11-06T21:48:52.504Z",
             "headers": [],
             "params": [],
             "body": {
@@ -139,22 +139,22 @@
             "_id": "a1d310f4-4462-40d7-9d86-8365dd7c76db",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Register workers (admin y superAdmin)",
+            "name": "Register workers (superAdmin)",
             "url": "localhost:3000/worker/register",
             "method": "POST",
             "sortNum": 100000,
             "created": "2023-11-01T17:50:11.987Z",
-            "modified": "2023-11-04T16:35:07.941Z",
+            "modified": "2023-11-06T10:15:47.306Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"first_name\": \"Gael\",\n  \"last_name\": \"Gutierrez\",\n  \"phone\": \"678947777\",\n  \"email\": \"gael@gael.com\",\n  \"nationality\": \"Spain\",\n  \"password\": \"123456789\"\n}",
+                "raw": "{\n  \"first_name\": \"Luis Miguel\",\n  \"last_name\": \"Gutierrez\",\n  \"phone\": \"00000000\",\n  \"email\": \"luismiguel@luismiguel.com\",\n  \"nationality\": \"Spain\",\n  \"password\": \"123456789\"\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoicGlsZXNAcGlsZXMuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjk5MTE1Njg0LCJleHAiOjE2OTkxNDQ0ODR9.9z1s3oc7qLgPr17P4wRyvnqCPqS0XWH9-VKS3VUJzso"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiY3Vpc2FjdWlzYUBtYXJjby5jb20iLCJyb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTY5OTI2NTYyMCwiZXhwIjoxNjk5Mjk0NDIwfQ.uZckpdgideAoy_egQ0XCbOvPUCL0N5pU-RdDmYmG7kQ"
             },
             "tests": []
         },
@@ -162,7 +162,7 @@
             "_id": "6930369c-a1ad-42bd-9490-8939346c5518",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Delete workers (admin and superAdmin)",
+            "name": "Delete workers (superAdmin)",
             "url": "localhost:3000/worker/delete",
             "method": "DELETE",
             "sortNum": 110000,
@@ -185,7 +185,7 @@
             "_id": "25d7ff71-ef7d-4d9d-90ac-ba8390888225",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Update profile worker",
+            "name": "Update profile (worker)",
             "url": "localhost:3000/worker/update",
             "method": "PUT",
             "sortNum": 120000,
@@ -272,18 +272,22 @@
             "_id": "f8323c4b-abe8-48e0-a293-781a3f8ef3af",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Crear cita cliente",
+            "name": "Create appointment (client)",
             "url": "localhost:3000/appointment/create",
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-11-06T00:23:50.256Z",
-            "modified": "2023-11-06T00:23:50.256Z",
+            "modified": "2023-11-06T21:09:38.380Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"tattoo_artist_id\":15,\n  \"intervention_type\":\"tattoo\",\n  \"day\":\"tuesday\",\n  \"hour\":\"morning\",\n  \"article\":\"Tatuaje acuarela\",\n  \"description\":\"tobillo derecho\"\n}",
+                "raw": "{\n  \"tattoo_artist_id\":12,\n  \"intervention_type\":\"tattoo\",\n  \"date\":\"2023-11-20T22:36:18.181Z\",\n  \"article\":\"Tatuaje acuarela\",\n  \"description\":\"tobillo derecho\"\n}",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTMwNDQ2MywiZXhwIjoxNjk5MzExNjYzfQ.LoKmvIbCOX4J4LdsQL6kwMGWi9st_fqoPpglGQXYY-M"
             },
             "tests": []
         },
@@ -291,7 +295,7 @@
             "_id": "2fa1cc3f-e3cc-4369-ae31-d2b254ef24f5",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Eliminar cita cliente",
+            "name": "Delete appointment (client)",
             "url": "localhost:3000/appointment/delete",
             "method": "DELETE",
             "sortNum": 170000,
@@ -314,22 +318,22 @@
             "_id": "beaa6953-823e-4825-a2ab-3a94a8c39c33",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Actualizar cita cliente",
+            "name": "Update appointment (client)",
             "url": "localhost:3000/appointment/update",
             "method": "PUT",
             "sortNum": 180000,
             "created": "2023-11-06T01:23:07.968Z",
-            "modified": "2023-11-06T01:23:07.968Z",
+            "modified": "2023-11-06T21:21:20.130Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\":3,\n  \"day\":\"friday\",\n  \"hour\":\"morning\"\n}",
+                "raw": "{\n  \"id\":1,\n  \"date\":\"2023-12-20T22:36:18.181Z\"\n  \n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJtaWd1ZWxAbWlndWVsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5MjMzNzI1LCJleHAiOjE2OTkyNDA5MjV9.LTBWjgERC5Av24d0ekk5WAzwj4sDyKH6m_nHzMiSypo"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTMwNDQ2MywiZXhwIjoxNjk5MzExNjYzfQ.LoKmvIbCOX4J4LdsQL6kwMGWi9st_fqoPpglGQXYY-M"
             },
             "tests": []
         },
@@ -337,22 +341,22 @@
             "_id": "cb7074c5-33d0-44a3-82ab-c49d5ea204d9",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Añadir precio cita Cliente (tatuador)",
+            "name": "Add price Client  appointment (tattoo_artist)",
             "url": "localhost:3000/appointment/workerupdate",
             "method": "PUT",
             "sortNum": 190000,
             "created": "2023-11-06T01:45:35.838Z",
-            "modified": "2023-11-06T01:45:35.838Z",
+            "modified": "2023-11-06T21:49:10.484Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\":3,\n  \"price\":\"30\"\n}",
+                "raw": "{\n  \"id\":1,\n  \"price\":\"300\"\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYW1pakBqYW1lcy5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTIzNTA2MiwiZXhwIjoxNjk5MjYzODYyfQ.u4uW16Pzt08hpC-ud2p_bEne8xpb2IMaNSEm7AHLxUQ"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYW1pakBqYW1lcy5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTMwNzMzMiwiZXhwIjoxNjk5MzM2MTMyfQ.SdK7HISRbeiOJg5_Bv-2iC7YuDDXlkaPB0kptnUaSzw"
             },
             "tests": []
         },
@@ -360,7 +364,7 @@
             "_id": "b40b4358-2fb0-4cd4-90cc-94aa4337c94b",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Cita cliente con el tatuador",
+            "name": "Appointment client/tatto_artist (client)",
             "url": "localhost:3000/appointment/clientAppointment",
             "method": "GET",
             "sortNum": 200000,
@@ -378,7 +382,7 @@
             "_id": "376adfdb-4920-4729-9519-d3a89b84df16",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "cita tatuador con el cliente",
+            "name": "Appointment tattoo_artist/client (worker)",
             "url": "localhost:3000/appointment/tattooArtistAppointment",
             "method": "GET",
             "sortNum": 210000,
@@ -389,6 +393,24 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW5jaGV6QG1pYXUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTkyNTg4MDEsImV4cCI6MTY5OTI2NjAwMX0.LiJIyBqk2fjYmnb7IqTz7t1ZzJGGE2hkbw6viRQ0CN0"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d46b41f4-d99f-4ebe-bc50-874ad306f77d",
+            "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
+            "containerId": "",
+            "name": "Products (customers consult the products)",
+            "url": "localhost:3000/client/products",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2023-11-06T09:26:41.630Z",
+            "modified": "2023-11-06T18:08:03.509Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTI5MzQ5MCwiZXhwIjoxNjk5MzAwNjkwfQ.Tx2cB0oU1D6aMIR4mbRk97Wnqe6SHhEY9qygNTUp2SE"
             },
             "tests": []
         }

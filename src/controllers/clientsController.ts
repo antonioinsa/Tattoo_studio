@@ -274,7 +274,7 @@ const getProducts = async (req: Request, res: Response) => {
     try {
         const products = await Product.find({
 
-            select: ["article", "description"]
+            select: ["id", "article", "description"]
         })
 
         return res.status(200).json
