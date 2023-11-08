@@ -120,11 +120,12 @@ Tanto clients como workers estan creados con una password generica "123456789", 
 }
 
 <u>Registros =></u>
-
-<a href="./src/DataBase/clients.sql">Click aqui para acceder clients.sql</a>
-<a href="./src/DataBase/workers.sql">Click aqui para acceder workers.sql</a>
-<a href="./src/DataBase/products.sql">Click aqui para acceder products.sql</a>
-<a href="./src/DataBase/portfolio.sql">Click aqui para acceder portfolio.sql</a>
+<div>
+<p><a href="./src/DataBase/clients.sql">Click aqui para acceder clients.sql</a></p>
+<p><a href="./src/DataBase/workers.sql">Click aqui para acceder workers.sql</a></p>
+<p><a href="./src/DataBase/products.sql">Click aqui para acceder products.sql</a></p>
+<p><a href="./src/DataBase/portfolio.sql">Click aqui para acceder portfolio.sql</a></p>
+</div>
 
 ## Licencia
 Proyecto desarrollado por Antonio Insa Benavent, bajo licencia MIT.
