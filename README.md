@@ -19,6 +19,7 @@
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#data base">Endpoints</a></li>
     <a></li>
     <li><a href="#licencia">Licencia</a></li>
     <li><a href="#agradecimientos">Agradecimientos</a></li>
@@ -89,6 +90,18 @@ Tecnologías utilizadas:
 
 ## Endpoints
 <a href="./src/http/thunder-collection_Tattoo_studio.json">Click aqui para acceder al JSON</a>
+
+## DataBase
+En este apartado se adjuntan las tablas en formato SQL para  insertar los registros en la base de datos.
+
+Tanto clients como workers estan creados con una password generica "123456789", para una mayor sencillez a la hora de probar la APP.
+
+Cuando se inserten los workers, el id 5 no se le asignado ningun producto (en la tabla products) porque hay que cambiar su role manualmente (mediante programa ej: MySQL Workbench) para obtener el superAdmin y al resto de id's (1-4) hay que asignarles el role admin.
+
+<a href="./src/DataBase/clients.sql">Click aqui para acceder clients.sql</a>
+<a href="./src/DataBase/workers.sql">Click aqui para acceder workers.sql</a>
+<a href="./src/DataBase/products.sql">Click aqui para acceder products.sql</a>
+<a href="./src/DataBase/portfolio.sql">Click aqui para acceder portfolio.sql</a>
 
 ## Licencia
 Proyecto desarrollado por Antonio Insa Benavent, bajo licencia MIT.

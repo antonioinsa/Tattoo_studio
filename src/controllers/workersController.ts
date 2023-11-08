@@ -7,7 +7,7 @@ const getWorkers = async (req: Request, res: Response) => {
     try {
         const workers = await Worker.find({
             where: {
-                role: "user",
+                role: "admin",
             },
             select: ["first_name", "last_name", "nationality"]
         })

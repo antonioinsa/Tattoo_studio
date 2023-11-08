@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
 import { Client } from "../models/Client";
 import dayjs from "dayjs";
+import { Portfolio } from "../models/Portfolio";
+import { Product } from "../models/Product";
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
@@ -17,10 +19,20 @@ const createAppointment = async (req: Request, res: Response) => {
         if (!client) {
             return res.status(400).json("Client does not exist")
         }
-        const { tattoo_artist_id, intervention_type, date, article, description } = req.body
+        const { intervention_type, date, article, description } = req.body
         const dateBody = dayjs(date, "'{AAAA} MM-DDTHH:mm:ss SSS [Z] A'");
         const dateNow = dayjs();
 
+        const productId = await Portfolio.findOne({
+            where : {id: article}
+        })
+        const tattooArtistId =productId?.tattoo_artist_id
+     
+        const findDescription = await Product.findOne({
+            where: {id: article}
+        })
+        const descripcionProduct = findDescription?.description
+        
         if (!dateBody.isValid() || dateBody < dateNow) {
             return res.status(400).json
                 (
@@ -42,28 +54,28 @@ const createAppointment = async (req: Request, res: Response) => {
         }
 
         const existAppointment = await Appointment.findOne({
-            where: { tattoo_artist_id: tattoo_artist_id, date: dateBody.toDate() },
-        });
+            where: { tattoo_artist_id: tattooArtistId, description: descripcionProduct, date: dateBody.toDate() },
+        })
 
         if (existAppointment) {
-            return res.json("Cita no disponible: Introduce otra fecha y hora.");
+            return res.json("Enter a different date and time");
         }
 
         const newAppointment = await Appointment.create({
             client_id: client.id,
-            tattoo_artist_id: tattoo_artist_id,
+            tattoo_artist_id: tattooArtistId,
             intervention_type,
             date: dateBody.toDate(),
             article,
-            description
+            description: descripcionProduct
         }).save()
-
+        
         return res.json
             (
                 {
                     success: true,
                     message: "Appointment created successfully",
-                    data: newAppointment
+                    data: newAppointment   
                 }
             )
     } catch (error) {
@@ -122,7 +134,7 @@ const updateAppointmentById = async (req: Request, res: Response) => {
         });
 
         if (existAppointment) {
-            return res.json("Cita no disponible: Introduce otra fecha y hora.");
+            return res.json("Enter a different date and time");
         }
 
         const appointmentToUpdate = await Appointment.findOne({
@@ -220,37 +232,37 @@ const workerUpdateAppointmentById = async (req: Request, res: Response) => {
 
         const appointmentToUpdate = await Appointment.findOne({
             where: { id: parseInt(appointmentId), tattoo_artist_id: tattooArtistId }
-        });
+        })
 
         if (!appointmentToUpdate) {
             return res.status(404).json({
                 success: false,
                 message: `Appointment ID ${appointmentId} not found or not authorized`
-            });
+            })
         }
 
         await Appointment.update(
             { id: parseInt(appointmentId) },
             { price: price }
-        );
+        )
 
         const updatedAppointment = await Appointment.findOne({
             where: { id: parseInt(appointmentId), tattoo_artist_id: tattooArtistId }
-        });
+        })
 
         return res.status(200).json({
             success: true,
             message: "Price updated successfully",
             appointment: updatedAppointment
-        });
+        })
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: "Price can't be updated",
             error: error
-        });
+        })
     }
-};
+}
 
 
 const clientAppointments = async (req: Request, res: Response) => {
@@ -309,13 +321,7 @@ const clientAppointments = async (req: Request, res: Response) => {
 
 const tattooArtistAppointments = async (req: Request, res: Response) => {
     try {
-        if (req.token.role !== "user") {
-            return res.status(403).json({
-                success: false,
-                message: "Unauthorized"
-            });
-        }
-
+      
         const workerAppointments = await Appointment.find({
             where: { tattoo_artist_id: req.token.id },
             select: [
@@ -329,7 +335,7 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
 
             ],
             relations: ["clientAppointment", "workerAppointment"]
-        });
+        })
 
         const customAppointments = workerAppointments.map((appointment) => ({
             client: appointment.clientAppointment.first_name,
@@ -351,9 +357,9 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
             success: false,
             message: "Could not fetch appointments",
             error: error
-        });
+        })
     }
-};
+}
 
 
 

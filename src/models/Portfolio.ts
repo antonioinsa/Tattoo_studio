@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColu
 import { Product } from "./Product"
 import { Worker } from "./Worker"
 
-@Entity("portfolio")
+@Entity("portfolios")
 export class Portfolio extends BaseEntity {
 
     @PrimaryGeneratedColumn()

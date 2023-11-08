@@ -1,0 +1,22 @@
+
+INSERT INTO products (id, description, article) VALUES
+(1, 'Tatuaje de Rosa', 'https://ejemplo.com/tatuaje-rosa'),
+(2, 'Piercing de Nariz', 'https://ejemplo.com/piercing-nariz'),
+(3, 'Tatuaje de Dragón', 'https://ejemplo.com/tatuaje-dragon'),
+(4, 'Piercing de Ceja', 'https://ejemplo.com/piercing-ceja'),
+(5, 'Tatuaje de Mariposa', 'https://ejemplo.com/tatuaje-mariposa'),
+(6, 'Piercing de Labio', 'https://ejemplo.com/piercing-labio'),
+(7, 'Tatuaje Tribal', 'https://ejemplo.com/tatuaje-tribal'),
+(8, 'Piercing de Oreja', 'https://ejemplo.com/piercing-oreja'),
+(9, 'Tatuaje de Calavera', 'https://ejemplo.com/tatuaje-calavera'),
+(10, 'Piercing de Lengua', 'https://ejemplo.com/piercing-lengua'),
+(11, 'Tatuaje de Serpiente', 'https://ejemplo.com/tatuaje-serpiente'),
+(12, 'Piercing de Ombligo', 'https://ejemplo.com/piercing-ombligo'),
+(13, 'Tatuaje de Águila', 'https://ejemplo.com/tatuaje-aguila'),
+(14, 'Piercing de Septum', 'https://ejemplo.com/piercing-septum'),
+(15, 'Tatuaje de Flores', 'https://ejemplo.com/tatuaje-flores'),
+(16, 'Piercing Industrial', 'https://ejemplo.com/piercing-industrial'),
+(17, 'Tatuaje de León', 'https://ejemplo.com/tatuaje-leon'),
+(18, 'Piercing Helix', 'https://ejemplo.com/piercing-helix'),
+(19, 'Tatuaje de Mandala', 'https://ejemplo.com/tatuaje-mandala'),
+(20, 'Piercing Labret', 'https://ejemplo.com/piercing-labret');
