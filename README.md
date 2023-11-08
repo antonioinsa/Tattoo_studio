@@ -19,7 +19,7 @@
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#database">DataBase</a></li>
+    <li><a href="#database">DataBase (accesos y registros)</a></li>
     <a></li>
     <li><a href="#licencia">Licencia</a></li>
     <li><a href="#agradecimientos">Agradecimientos</a></li>
@@ -96,7 +96,30 @@ En este apartado se adjuntan las tablas en formato SQL para  insertar los regist
 
 Tanto clients como workers estan creados con una password generica "123456789", para una mayor sencillez a la hora de probar la APP.
 
-Cuando se inserten los workers, el id 5 no se le asignado ningun producto (en la tabla products) porque hay que cambiar su role manualmente (mediante programa ej: MySQL Workbench) para obtener el superAdmin y al resto de id's (1-4) hay que asignarles el role admin.
+<u>Accesos =></u>
+
+**user (login clients)**
+
+{
+  "email": "bradki9@shareasale.com",
+  "password": "123456789"
+}
+
+**admin (login workers)**
+
+{
+  "email": "pgirvan0@delicious.com",
+  "password": "123456789"
+}
+
+**superAdmin (login workers)**
+
+{
+  "email": "akingaby4@dailymotion.com",
+  "password": "123456789"
+}
+
+<u>Registros =></u>
 
 <a href="./src/DataBase/clients.sql">Click aqui para acceder clients.sql</a>
 <a href="./src/DataBase/workers.sql">Click aqui para acceder workers.sql</a>
