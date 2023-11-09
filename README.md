@@ -14,7 +14,6 @@
   <ol>
     <li><a href="#objetivo">Objetivo</a></li>
     <li><a href="#sobre-el-proyecto">Sobre el proyecto</a></li>
-    <li><a href="#deploy-🚀">Deploy</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagrama</a></li>
     <li><a href="#instalación-en-local">Instalación</a></li>
@@ -40,11 +39,6 @@ En esta API, cualquier persona registrada o no, podra ver los tatuadores en plan
 Por ello se permite el acceso a estos trabajadores, pero unicamente se podran ver sus trabajos si eres un usuario registrado.
 
 La supervision de la API la realizara el superAdmin, el cual podra ver todos los clientes y trabajadores de su estudio de tatuajes, al igual que dar de alta o baja sus trabajadores y cambiar de "role" a los usuarios.
-
-## Deploy 🚀
-<div align="center">
-    <a href="https://antonioinsa.github.io/Tattoo_studio/"><strong> Tattoo_studio </strong></a>🚀🚀🚀
-</div>
 
 ## Stack
 Tecnologías utilizadas:
@@ -85,11 +79,195 @@ Tecnologías utilizadas:
 2. ` $ npm install `
 3. Conectamos nuestro repositorio con la base de datos 
 4. ```$ npx typeorm-ts-node-commonjs migration:run -d ./src/db.ts ```
-5. ``` $ Ejecutamos los seeders ``` 
+5. ``` $ Utilizamos archivos SQL (insertamos los registros en las diferentes tablas de nuestra DB) ``` 
 6. ``` $ npm run dev ``` 
 
+
 ## Endpoints
-<a href="./src/http/thunder-collection_Tattoo_studio.json">Click aqui para acceder al JSON</a>
+<details>
+<summary>Endpoints</summary>
+
+
+- OPEN
+
+    - Workers list (all people)
+
+            GET http://localhost:3000/worker/current
+
+-AUTH
+
+  - CLIENTES
+
+    - Register new (client)
+
+            POST http://localhost:3000/client/register
+        body:
+        ``` js
+            {
+                "first_name": "David",
+                "last_name": "Perez Ruiz",
+                "phone": "666666888",
+                "email": "david@david.com",
+                "password": "123456789"
+            }
+        ```
+    - Login (Clients)
+
+            POST http://localhost:3000/client/login  
+        body:
+        ``` js
+            {
+                "email": "david@david.com",
+                "password": "123456789"
+            }
+        ```
+    - Account client (personal profile)
+
+            GET http://localhost:3000/client/account  
+        
+    - Update profile (client)
+
+            PUT http://localhost:3000/client/account/modifyAccount 
+
+    - Products (customers consult the products)
+
+            GET http://localhost:3000/client/products          
+       
+    - Delete client (superAdmin)
+
+            DELETE http://localhost:3000/client/delete
+        body:
+        ``` js
+            {
+                "id": 3
+            }
+        ```
+
+  - TRABAJADORES
+
+    -  Login (superAdmin)
+
+            POST http://localhost:3000/worker/login 
+        body:
+        ``` js
+            {
+                "email": "akingaby4@dailymotion.com",
+                "password": "123456789"
+            }
+        ```
+    - All clients profiles (superAdmin)
+
+            GET http://localhost:3000/client/clients 
+
+    - Register workers (superAdmin)
+
+            POST http://localhost:3000/worker/register
+        body:
+        ``` js
+            {
+                "first_name": "Odin",
+                "last_name": "Marandi",
+                "phone": "987425699",
+                "email": "odin@odin.com",
+                "nationality": "Latvia",
+                "password": "123456789"
+            }
+        ```
+    -  Login (workers)
+
+            POST http://localhost:3000/worker/login 
+        body:
+        ``` js
+            {
+                "email": "pgirvan0@delicious.com",
+                "password": "123456789"
+            }
+        ```
+    - Delete workers (superAdmin)
+
+            DELETE http://localhost:3000/worker/delete
+        body:
+        ``` js
+            {
+                "id": 2
+            }
+        ```
+
+    - Update profile worker (superAdmin) - Dato/s ha actualizar 
+      ("first_name", "last_name", "phone", "email", "nationality", "password")
+
+            PUT http://localhost:3000/worker/update
+        body:
+        ``` js
+            {
+                "phone": "987444444",
+                "email": "pgi@delicious.com"
+            }
+        ```
+    - Change Role (superAdmin)
+
+            PUT http://localhost:3000/worker/changeRole
+        body:
+        ``` js
+            {
+                "id": 3,
+                "role": "superAdmin"
+            }
+        ```   
+
+- GESTION DE CITAS
+
+    -  Create appointment (client)
+
+            POST http://localhost:3000/appointment/create 
+        body:
+        ``` js
+            {
+                "intervention_type": "tattoo",
+                "date": "2024-11-06T16:20:20.130Z",
+                "article": 1,
+            }
+        ``` 
+    -  Update appointment (client)
+
+            PUT http://localhost:3000/appointment/update 
+        body:
+        ``` js
+            {
+                "date": "2024-12-06T16:20:20.130Z"
+            }
+        ```
+    -  Delete appointment (client)
+
+            DELETE http://localhost:3000/appointment/delete 
+        body:
+        ``` js
+            {
+                "id": 1
+            }
+        ```      
+    -  Add price Client  appointment (tattoo_artist)
+
+            PUT http://localhost:3000/appointment/workerupdate 
+        body:
+        ``` js
+            {
+                "price": "150"
+            }
+        ```
+
+  - CONSULTAR CITAS
+
+      - Appointment client/tatto_artist (client)
+
+            GET http://localhost:3000/appointment/clientAppointment 
+
+      - Appointment tattoo_artist/client (worker)
+
+            GET http://localhost:3000/appointment/tattooArtistAppointment 
+
+     ...
+</details>
 
 ## DataBase
 En este apartado se adjuntan las tablas en formato SQL para  insertar los registros en la base de datos.
