@@ -1,5 +1,5 @@
 
-INSERT INTO portfolio (tattoo_artist_id, product_id) VALUES
+INSERT INTO portfolios (tattoo_artist_id, product_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),

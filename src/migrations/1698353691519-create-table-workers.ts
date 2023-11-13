@@ -46,6 +46,11 @@ export class CreateTableWorkers1698353691519 implements MigrationInterface {
                         length: "200"
                     },
                     {
+                        name: "photo",
+                        type: "varchar",
+                        length: "200"
+                    },
+                    {
                         name: "is_active",
                         type: "boolean",
                         default: true

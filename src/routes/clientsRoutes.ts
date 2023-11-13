@@ -19,7 +19,7 @@ router.get('/account', authUser, account)
 router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
 router.get('/clients', authUser, authSuperAdmin, allClients)
 router.delete('/delete', authUser, authSuperAdmin, removeClientById)
-router.get('/products', authUser, getProducts)
+router.get('/products', getProducts)
 
 
 export { router }

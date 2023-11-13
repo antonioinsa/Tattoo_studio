@@ -13,6 +13,9 @@ export class Product extends BaseEntity {
     article!: string
 
     @Column()
+    intervention_type!: string
+
+    @Column()
     created_at!: Date
 
     @Column()

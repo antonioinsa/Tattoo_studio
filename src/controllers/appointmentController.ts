@@ -19,7 +19,7 @@ const createAppointment = async (req: Request, res: Response) => {
         if (!client) {
             return res.status(400).json("Client does not exist")
         }
-        const { intervention_type, date, article, description } = req.body
+        const { date, article } = req.body
         const dateBody = dayjs(date, "'{AAAA} MM-DDTHH:mm:ss SSS [Z] A'");
         const dateNow = dayjs();
 
@@ -27,11 +27,13 @@ const createAppointment = async (req: Request, res: Response) => {
             where : {id: article}
         })
         const tattooArtistId =productId?.tattoo_artist_id
+        console.log("este es el id del tatuador",productId)
      
         const findDescription = await Product.findOne({
             where: {id: article}
         })
         const descripcionProduct = findDescription?.description
+        const interventionType = findDescription?.intervention_type
         
         if (!dateBody.isValid() || dateBody < dateNow) {
             return res.status(400).json
@@ -54,7 +56,10 @@ const createAppointment = async (req: Request, res: Response) => {
         }
 
         const existAppointment = await Appointment.findOne({
-            where: { tattoo_artist_id: tattooArtistId, description: descripcionProduct, date: dateBody.toDate() },
+            where: { tattoo_artist_id: tattooArtistId,
+                description: descripcionProduct,
+                intervention_type: interventionType,
+                date: dateBody.toDate() },
         })
 
         if (existAppointment) {
@@ -64,7 +69,7 @@ const createAppointment = async (req: Request, res: Response) => {
         const newAppointment = await Appointment.create({
             client_id: client.id,
             tattoo_artist_id: tattooArtistId,
-            intervention_type,
+            intervention_type: interventionType,
             date: dateBody.toDate(),
             article,
             description: descripcionProduct

@@ -223,7 +223,6 @@ Tecnologías utilizadas:
         body:
         ``` js
             {
-                "intervention_type": "tattoo",
                 "date": "2024-11-06T16:20:20.130Z",
                 "article": 1,
             }

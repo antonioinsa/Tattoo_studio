@@ -24,8 +24,8 @@ export class CreateTableAppointments1698353822932 implements MigrationInterface 
                     },
                     {
                         name: "intervention_type",
-                        type: "enum",
-                        enum: ["tattoo", "piercing"]
+                        type: "varchar",
+                        length: "200"
                     },
                     {
                         name: "price",

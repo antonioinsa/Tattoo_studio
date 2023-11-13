@@ -25,6 +25,11 @@ export class CreateTableProducts1698353804252 implements MigrationInterface {
                         length: "200"
                     },
                     {
+                        name: "intervention_type",
+                        type: "varchar",
+                        length: "200"
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",

@@ -9,7 +9,7 @@ const getWorkers = async (req: Request, res: Response) => {
             where: {
                 role: "admin",
             },
-            select: ["first_name", "last_name", "nationality"]
+            select: ["first_name", "last_name", "nationality", "photo"]
         })
 
         return res.status(200).json
@@ -64,6 +64,7 @@ const register = async (req: Request, res: Response) => {
         const phone = req.body.phone
         const nationality = req.body.nationality
         const password = req.body.password
+        const photo = req.body.photo
 
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$/;
 
@@ -79,7 +80,8 @@ const register = async (req: Request, res: Response) => {
                 email: email,
                 phone: phone,
                 nationality: nationality,
-                password: encryptedPassword
+                password: encryptedPassword,
+                photo: photo
             }).save()
 
         return res.status(201).json
@@ -166,7 +168,7 @@ const login = async (req: Request, res: Response) => {
 const updateWorkerById = async (req: Request, res: Response) => {
     try {
         const workerId = req.body.id;
-        const { first_name, last_name, phone, email, password, nationality } = req.body;
+        const { first_name, last_name, phone, email, password, nationality, photo } = req.body;
 
         const workerToUpdate = await Worker.findOneBy({ id: workerId })
 
@@ -210,7 +212,8 @@ const updateWorkerById = async (req: Request, res: Response) => {
             last_name,
             email,
             phone,
-            nationality
+            nationality,
+            photo
         });
 
         const updatedWorker = await Worker.findOneBy({ id: workerId });

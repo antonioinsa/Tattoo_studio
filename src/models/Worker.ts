@@ -27,6 +27,9 @@ export class Worker extends BaseEntity {
     password!: string
 
     @Column()
+    photo!: string
+
+    @Column()
     is_active!: boolean
 
     @Column()
