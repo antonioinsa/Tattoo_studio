@@ -24,17 +24,18 @@ const createAppointment = async (req: Request, res: Response) => {
         const dateNow = dayjs();
 
         const productId = await Portfolio.findOne({
-            where : {id: article}
+            where: { id: article },
         })
-        const tattooArtistId =productId?.tattoo_artist_id
-        console.log("este es el id del tatuador",productId)
-     
+
+        const tattooArtistId = productId?.tattoo_artist_id
+
         const findDescription = await Product.findOne({
-            where: {id: article}
+            where: { id: article },
+
         })
         const descripcionProduct = findDescription?.description
         const interventionType = findDescription?.intervention_type
-        
+
         if (!dateBody.isValid() || dateBody < dateNow) {
             return res.status(400).json
                 (
@@ -56,10 +57,12 @@ const createAppointment = async (req: Request, res: Response) => {
         }
 
         const existAppointment = await Appointment.findOne({
-            where: { tattoo_artist_id: tattooArtistId,
+            where: {
+                tattoo_artist_id: tattooArtistId,
                 description: descripcionProduct,
                 intervention_type: interventionType,
-                date: dateBody.toDate() },
+                date: dateBody.toDate()
+            },
         })
 
         if (existAppointment) {
@@ -74,13 +77,13 @@ const createAppointment = async (req: Request, res: Response) => {
             article,
             description: descripcionProduct
         }).save()
-        
+
         return res.json
             (
                 {
                     success: true,
                     message: "Appointment created successfully",
-                    data: newAppointment   
+                    data: newAppointment
                 }
             )
     } catch (error) {
@@ -326,7 +329,7 @@ const clientAppointments = async (req: Request, res: Response) => {
 
 const tattooArtistAppointments = async (req: Request, res: Response) => {
     try {
-      
+
         const workerAppointments = await Appointment.find({
             where: { tattoo_artist_id: req.token.id },
             select: [
@@ -365,7 +368,6 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
         })
     }
 }
-
 
 
 export {

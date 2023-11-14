@@ -297,4 +297,6 @@ const getProducts = async (req: Request, res: Response) => {
     }
 }
 
-export { register, login, account, allClients, modifyClientByTokenId, removeClientById, getProducts }
+
+export { register, login, account, allClients, modifyClientByTokenId,
+    removeClientById, getProducts }
