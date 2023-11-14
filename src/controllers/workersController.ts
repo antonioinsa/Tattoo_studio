@@ -322,6 +322,7 @@ const tattooArtistProducts = async (req: Request, res: Response) => {
         const portfolios = await Portfolio.find({
             where: { tattoo_artist_id: artistId },
             relations: ["productPortfolio"],
+
         });
 
         if (!portfolios || portfolios.length === 0) {
@@ -333,11 +334,9 @@ const tattooArtistProducts = async (req: Request, res: Response) => {
 
         const productsInfo = portfolios.map((portfolio) => ({
             product_id: portfolio.product_id,
-            description: portfolio.productPortfolio
-            
+            descriptionProduct: portfolio.productPortfolio
+             
         }));
-
-        const customInfo = productsInfo
 
         return res.status(200).json({
             success: true,
