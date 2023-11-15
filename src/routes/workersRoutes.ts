@@ -8,8 +8,7 @@ import {
     register,
     updateWorkerById,
     deleteWorkerById,
-    changeRoleBySuperAdmin,
-    tattooArtistProducts
+    changeRoleBySuperAdmin
 } from "../controllers/workersController";
 
 const router = Router()
@@ -20,6 +19,5 @@ router.post('/register', authUser, authSuperAdmin, register)
 router.put('/update', authUser, authSuperAdmin, updateWorkerById)
 router.delete('/delete', authUser, authSuperAdmin, deleteWorkerById)
 router.put('/changeRole', authUser, authSuperAdmin, changeRoleBySuperAdmin)
-router.post('/tattooArtistProducts', tattooArtistProducts)
 
 export { router }

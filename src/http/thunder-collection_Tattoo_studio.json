@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Tattoo_studio",
-    "dateExported": "2023-11-06T21:49:28.487Z",
+    "dateExported": "2023-11-15T19:07:26.804Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -32,12 +32,12 @@
             "method": "POST",
             "sortNum": 40000,
             "created": "2023-10-29T21:09:12.294Z",
-            "modified": "2023-11-06T10:11:50.362Z",
+            "modified": "2023-11-08T18:52:58.499Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"david@david.com\",\n  \"password\": \"123456789\"\n}",
+                "raw": "{\n  \"email\": \"bradki9@shareasale.com\",\n  \"password\": \"123456789\"\n}",
                 "form": []
             },
             "tests": []
@@ -125,12 +125,12 @@
             "method": "POST",
             "sortNum": 90000,
             "created": "2023-11-01T17:49:17.268Z",
-            "modified": "2023-11-06T21:48:52.504Z",
+            "modified": "2023-11-08T18:58:25.993Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"amij@james.com\",\n  \"password\": \"123456789\"\n}",
+                "raw": "{\n  \"email\": \"pgirvan0@delicious.com\",\n  \"password\": \"123456789\"\n}",
                 "form": []
             },
             "tests": []
@@ -277,17 +277,17 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-11-06T00:23:50.256Z",
-            "modified": "2023-11-06T21:09:38.380Z",
+            "modified": "2023-11-14T16:53:41.948Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"tattoo_artist_id\":12,\n  \"intervention_type\":\"tattoo\",\n  \"date\":\"2023-11-20T22:36:18.181Z\",\n  \"article\":\"Tatuaje acuarela\",\n  \"description\":\"tobillo derecho\"\n}",
+                "raw": "{\n  \"date\":\"2024-11-22T10:30:01.181Z\",\n  \"article\":3\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTMwNDQ2MywiZXhwIjoxNjk5MzExNjYzfQ.LoKmvIbCOX4J4LdsQL6kwMGWi9st_fqoPpglGQXYY-M"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYnJhZGtpOUBzaGFyZWFzYWxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5OTc1MzcyLCJleHAiOjE2OTk5ODI1NzJ9.bsFrSqdSx920rxAWVuZcStoT0lyve5FQGUB_DPQb0ZI"
             },
             "tests": []
         },
@@ -369,12 +369,12 @@
             "method": "GET",
             "sortNum": 200000,
             "created": "2023-11-06T02:19:33.530Z",
-            "modified": "2023-11-06T02:19:33.530Z",
+            "modified": "2023-11-07T17:14:49.492Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzYW5jaGV6QG1pYXUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTkyMzY2NDksImV4cCI6MTY5OTI0Mzg0OX0.lJkJJOnVb3D8eJq-RqK5lQsBRySrnLnKwl_33txWFvQ"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTM3NjczNywiZXhwIjoxNjk5MzgzOTM3fQ.KEau6VI4XhhrdoMaXOtUM9PKWWDgfs-5L_ce3YDtQHI"
             },
             "tests": []
         },
@@ -400,18 +400,65 @@
             "_id": "d46b41f4-d99f-4ebe-bc50-874ad306f77d",
             "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
             "containerId": "",
-            "name": "Products (customers consult the products)",
+            "name": "Products",
             "url": "localhost:3000/client/products",
             "method": "GET",
             "sortNum": 220000,
             "created": "2023-11-06T09:26:41.630Z",
-            "modified": "2023-11-06T18:08:03.509Z",
+            "modified": "2023-11-12T12:08:02.699Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJkYXZpZEBkYXZpZC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY5OTI5MzQ5MCwiZXhwIjoxNjk5MzAwNjkwfQ.Tx2cB0oU1D6aMIR4mbRk97Wnqe6SHhEY9qygNTUp2SE"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYnJhZGtpOUBzaGFyZWFzYWxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5NzkwODU3LCJleHAiOjE2OTk3OTgwNTd9.RQjdVPjMlLJlU1_m1gqfst_zMZrM2TqnNw94T6z7ufU"
             },
+            "tests": []
+        },
+        {
+            "_id": "811523d9-44f8-48df-98b9-f100e06572db",
+            "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
+            "containerId": "",
+            "name": "Each tattoo artist products",
+            "url": "localhost:3000/tattooArtistProducts",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2023-11-15T19:00:46.032Z",
+            "modified": "2023-11-15T19:00:46.032Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"tattoo_artist_id\": 3\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5d563fcc-520f-4cb8-83d6-1b31d1fe52bf",
+            "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
+            "containerId": "",
+            "name": "Only tattoo products",
+            "url": "localhost:3000/onlytattoo",
+            "method": "GET",
+            "sortNum": 240000,
+            "created": "2023-11-15T19:02:40.918Z",
+            "modified": "2023-11-15T19:02:40.918Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e18f5980-c4e7-4a54-ad96-97e80aaa904f",
+            "colId": "450762d7-ab3b-433b-a1af-88cce5437e6d",
+            "containerId": "",
+            "name": "Only piercing product",
+            "url": "localhost:3000/onlypiercing",
+            "method": "GET",
+            "sortNum": 250000,
+            "created": "2023-11-15T19:07:11.575Z",
+            "modified": "2023-11-15T19:07:11.575Z",
+            "headers": [],
+            "params": [],
             "tests": []
         }
     ]

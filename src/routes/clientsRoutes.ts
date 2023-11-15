@@ -5,8 +5,7 @@ import {
     account,
     allClients,
     modifyClientByTokenId,
-    removeClientById,
-    getProducts,
+    removeClientById
 } from "../controllers/clientsController";
 import { authUser } from "../middlewares/authUser";
 import { authSuperAdmin } from "../middlewares/authSuperAdmin";
@@ -20,6 +19,6 @@ router.get('/account', authUser, account)
 router.put('/account/modifyAccount', authUser, modifyClientByTokenId)
 router.get('/clients', authUser, authSuperAdmin, allClients)
 router.delete('/delete', authUser, authSuperAdmin, removeClientById)
-router.get('/products', getProducts)
+
 
 export { router }

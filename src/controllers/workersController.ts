@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { Worker } from "../models/Worker";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Portfolio } from "../models/Portfolio";
-import { Product } from "../models/Product";
 
 const getWorkers = async (req: Request, res: Response) => {
     try {
@@ -314,47 +312,10 @@ const changeRoleBySuperAdmin = async (req: Request, res: Response) => {
     }
 }
 
-const tattooArtistProducts = async (req: Request, res: Response) => {
-    try {
-        const { tattoo_artist_id } = req.body;
-        const artistId = parseInt(tattoo_artist_id, 10);
 
-        const portfolios = await Portfolio.find({
-            where: { tattoo_artist_id: artistId },
-            relations: ["productPortfolio"],
-
-        });
-
-        if (!portfolios || portfolios.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "No portfolios found for specified tattoo artist",
-            });
-        }
-
-        const productsInfo = portfolios.map((portfolio) => ({
-            product_id: portfolio.product_id,
-            descriptionProduct: portfolio.productPortfolio
-             
-        }));
-
-        return res.status(200).json({
-            success: true,
-            message: "Product information received successfully",
-            data: productsInfo,
-        });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Could not fetch product information",
-            error: error
-        });
-    }
-};
 
 
 
 
 export { getWorkers, workersFiles, register, login, updateWorkerById,
-    deleteWorkerById, changeRoleBySuperAdmin, tattooArtistProducts }
+    deleteWorkerById, changeRoleBySuperAdmin }

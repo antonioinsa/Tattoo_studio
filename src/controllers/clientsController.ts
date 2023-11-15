@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Client } from "../models/Client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Product } from "../models/Product";
 
 const register = async (req: Request, res: Response) => {
     try {
@@ -270,33 +269,6 @@ const removeClientById = async (req: Request, res: Response) => {
     }
 }
 
-const getProducts = async (req: Request, res: Response) => {
-    try {
-        const products = await Product.find({
-
-            select: ["id", "article", "description"]
-        })
-
-        return res.status(200).json
-            (
-                {
-                    success: true,
-                    message: "Products retrieved",
-                    data: products
-                }
-            )
-    } catch (error) {
-        return res.status(500).json
-            (
-                {
-                    success: false,
-                    message: "Products cant be retrieved",
-                    error: error
-                }
-            )
-    }
-}
-
 
 export { register, login, account, allClients, modifyClientByTokenId,
-    removeClientById, getProducts }
+    removeClientById }
