@@ -349,6 +349,7 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
             client: appointment.clientAppointment.first_name,
             phone: appointment.clientAppointment.phone,
             type: appointment.intervention_type,
+            id: appointment.id,
             price: appointment.price,
             appointment_date: appointment.date,
             description: appointment.description,
