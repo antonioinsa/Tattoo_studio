@@ -135,6 +135,7 @@ const account = async (req: Request, res: Response) => {
 const modifyClientByTokenId = async (req: Request, res: Response) => {
     try {
         const { first_name, last_name, phone, email, password } = req.body
+console.log(req.body);
 
         await Client.findOneBy
             (

@@ -305,6 +305,7 @@ const clientAppointments = async (req: Request, res: Response) => {
         })
 
         const customAppointments = clientAppointments.map((appointment) => ({
+            id: appointment.id,
             tattoo_artist: appointment.workerAppointment.first_name,
             type: appointment.intervention_type,
             price: appointment.price,
@@ -371,7 +372,54 @@ const tattooArtistAppointments = async (req: Request, res: Response) => {
 }
 
 
+const allAppointments = async (req: Request, res: Response) => {
+    try {
+        
+        const clientAppointments = await Appointment.find({
+            select: [
+                "id",
+                "tattoo_artist_id",
+                "client_id",
+                "intervention_type",
+                "price",
+                "date",
+                "article",
+                "description",
+                "updated_at"
+            ],
+            relations: ["clientAppointment", "workerAppointment"]
+        })
+
+        const customAppointments = clientAppointments.map((appointment) => ({
+            id_appointment: appointment.id,
+            worker_first_name: appointment.workerAppointment.first_name,
+            worker_last_name: appointment.workerAppointment.last_name,
+            client_first_name: appointment.clientAppointment.first_name,
+            client_last_name: appointment.clientAppointment.last_name,
+            type: appointment.intervention_type,
+            article: appointment.article,
+            description: appointment.description,
+            price: appointment.price,
+            appointment_date: appointment.date,
+            last_updated: appointment.updated_at
+        }))
+
+        return res.status(200).json({
+            success: true,
+            message: `All available appointments`,
+            appointments: customAppointments
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Could not fetch appointments",
+            error: error
+        })
+    }
+}
+
 export {
     createAppointment, deleteAppointmentById, updateAppointmentById,
-    workerUpdateAppointmentById, clientAppointments, tattooArtistAppointments
+    workerUpdateAppointmentById, clientAppointments, tattooArtistAppointments,
+    allAppointments
 }
