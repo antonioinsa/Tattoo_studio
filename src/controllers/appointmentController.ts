@@ -192,15 +192,12 @@ const deleteAppointmentById = async (req: Request, res: Response) => {
                 message: "Unauthorized"
             });
         }
-        const client = await Client.findOne({
-            where: { id: req.token.id },
-        });
-        if (!client) {
-            return res.status(400).json("Client does not exist")
-        }
+        
         const appointmentToDelete = req.body.id
+        console.log(req.body.id);
+        
         const appointmentToRemove = await Appointment.findOne({
-            where: { id: parseInt(appointmentToDelete), client_id: req.token.id }
+            where: { id: appointmentToDelete, client_id: req.token.id }
         })
         if (!appointmentToRemove) {
             return res.status(404).json
