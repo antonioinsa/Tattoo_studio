@@ -194,7 +194,7 @@ const deleteAppointmentById = async (req: Request, res: Response) => {
         }
         
         const appointmentToDelete = req.body.id
-        console.log(req.body.id);
+        
         
         const appointmentToRemove = await Appointment.findOne({
             where: { id: appointmentToDelete, client_id: req.token.id }
